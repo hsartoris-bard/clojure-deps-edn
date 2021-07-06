@@ -54,7 +54,7 @@
   ;;;; REPL-y automatically starting CIDERed nREPL if needed
   :repl {:extra-deps {reply/reply       {:mvn/version "0.4.4"}
                       cider/cider-nrepl {:mvn/version "0.26.0"}}
-         :extra-paths ["dev"]
+         :extra-paths ["/home/hsartoris/.clojure/dev/"]
          :main-opts ["-m" "repl.dev"]}
 
   ;;;; Simple nREPL server with no additional libraries

@@ -51,6 +51,12 @@
   ;; Run interactive REPL with nREPL connection
   ;; NOTE: For non-interactive REPL session, use :middleware versions
 
+  ;;;; REPL-y automatically starting CIDERed nREPL if needed
+  :repl {:extra-deps {reply/repl        {:mvn/version "0.4.4"}
+                      cider/cider-nrepl {:mvn/version "0.26.0"}}
+         :extra-paths ["dev"]
+         :main-opts ["-m" "repl.dev"]}
+
   ;;;; Simple nREPL server with no additional libraries
   :repl/nrepl
   {:extra-deps {nrepl/nrepl                {:mvn/version "0.8.3"}}

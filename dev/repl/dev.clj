@@ -10,18 +10,23 @@
 (defn- start-nrepl
   "Start an nREPL server, saving it in `nrepl-server`."
   []
-  (println "Starting REPL")
+  (print "Starting REPL...")
   (future
     (nrepl/-main "-h" "127.0.0.1" "--middleware" "[\"cider.nrepl/cider-middleware\"]"))
   (reset! nrepl-started? true)
-  (println "REPL started"))
+  (println  "...started"))
 
 (defn- get-port
   []
-  (or (try (slurp ".nrepl-port") (catch Throwable _))
-      (do (start-nrepl)
-          (Thread/sleep 1000)
-          (slurp ".nrepl-port"))))
+  (if-some [port (try (slurp ".nrepl-port") (catch Throwable _))]
+    (do (println "Connecting to existing REPL on port" port)
+        port)
+    (do (println "REPL server not yet running")
+        (start-nrepl)
+        (println "Delaying to allow REPL to finish startup...")
+        (Thread/sleep 1000)
+        (println "...complete; reading port from .nrepl-port")
+        (slurp ".nrepl-port"))))
 
 
 (def default-opts
@@ -39,5 +44,6 @@
        (assoc default-opts :attach)
        reply/launch-nrepl) ;; blocks
   (when @nrepl-started?
+    (println "Shutting down REPL server")
     (System/exit 0)) ;; ensure REPL is shutdown if started
   (shutdown-agents))

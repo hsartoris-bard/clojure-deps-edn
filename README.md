@@ -1,169 +1,217 @@
-![Practicalli Clojure deps.edn user wide configuration for Clojure projects](https://raw.githubusercontent.com/practicalli/graphic-design/live/practicalli-clojure-deps.png)
+# Practicalli Clojure CLI Config
 
-# User level configuration for Clojure CLI tools
-[practicalli/clojure-deps-edn](https://github.com/practicalli/clojure-deps-edn) provides a user level configuration, containing over 30 aliases to support Clojure CLI and tools.deps project development.  These aliases use meaningful and descriptive names to avoid clashes with project specific aliases, ensuring that the user wide aliases remain available in all projects.
+```none
+██████╗ ██████╗  █████╗  ██████╗████████╗██╗ ██████╗ █████╗ ██╗     ██╗     ██╗
+██╔══██╗██╔══██╗██╔══██╗██╔════╝╚══██╔══╝██║██╔════╝██╔══██╗██║     ██║     ██║
+██████╔╝██████╔╝███████║██║        ██║   ██║██║     ███████║██║     ██║     ██║
+██╔═══╝ ██╔══██╗██╔══██║██║        ██║   ██║██║     ██╔══██║██║     ██║     ██║
+██║     ██║  ██║██║  ██║╚██████╗   ██║   ██║╚██████╗██║  ██║███████╗███████╗██║
+╚═╝     ╚═╝  ╚═╝╚═╝  ╚═╝ ╚═════╝   ╚═╝   ╚═╝ ╚═════╝╚═╝  ╚═╝╚══════╝╚══════╝╚═╝
+```
 
-Aliases with common options are provided for convenience and to minimize the amount of cognitive load required to remember how to use aliases. Initial inspiration taken from [seancorfield/dot-clojure](https://github.com/seancorfield/dot-clojure).
+[Practicalli Clojure CLI Config](https://github.com/practicalli/clojure-cli-config/) contains a `deps.edn` alias definitions for a wide range of community libraries and tools to that extend the features of Clojure CLI.
 
-The **[Practicalli Clojure book](https://practicalli.github.io/clojure/clojure-tools/data-browsers/portal.html)** uses this configuration extensively to help you develop Clojure projects and learn the Clojure language.
+Aliases are qualified keywords using descriptive names to clearly convey purpose and provide a level of consistency to minimise cognitive load.
 
-> MAJOR CHANGES: practicalli/clojure-deps-edn recommends using [Clojure CLI tools](https://clojure.org/guides/getting_started) version 1.10.1.697 or later.
-> Aliases are now qualified keywords, which is recommended in general for using keywords in Clojure.
-> Use the `classic-aliases` tag for the last version of this repository before these changes
+Common arguments are included in alias definitions via `main-opts` and `:exec-args` to provide a default behaviour and simplify the use aliases.
 
-# Contents
-* [Installing practicalli/clojure-deps-edn](#installing-practicalli-clojure-deps-edn)
-* [Updating practicalli/clojure-deps-edn](#updating-practicalli-clojure-deps-edn)
+Alias  used with the `-A`, `-M`, `-T` or `-X` execution options
+
+Aliases are defined to be used with all execution options `-A`, `-M`, `-P`, `-T` or `-X` where possible, otherwise use the following execution options:
+
+- `-M` for `:main-opts` configuration
+- `-X` for `:exec-opts` configuration
+- `-T` for `:exec-opts`, ignoring project dependencies
+
+> [Clojure CLI - Which execution options to use](https://practical.li/clojure/clojure-cli/execution-options/)
+
+The project also contains
+
+* GitHub workflow that runs MegaLinter and Code Quality checks (clj-kondo and cljstyle via the setup-clojure action)
+* cljstyle configuration that follows the Clojure Style Guide
+* Rebel Readline example configuration (supports the Rich Terminal UI used by Practicalli)
+* cspell configuration for linting markdown and other text
+* `deps-deprecated.edn` containing alias examples of tools not currently used by Practialli which may still be of interest to the wider community
+
+[Practicalli books](https://practical.li/#books) uses the Clojure CLI Config extensively to support a [REPL Reloaded workflow](https://practical.li/clojure/clojure-cli/repl-reloaded/) for Clojure projects.
+
+[Practicalli Clojure book discusses Clojure CLI and its use](https://practical.li/clojure/clojure-cli/repl/), along with video walk-through of the key features.
+
+
+[![License CC By SA 4.0](https://img.shields.io/badge/license-CC%20BY--SA%204.0%20-blueviolet)](http://creativecommons.org/licenses/by-sa/4.0/?ref=chooser-v1)
+[![GitHub Sponsors for practicalli-john](https://img.shields.io/github/sponsors/practicalli-john)](https://github.com/sponsors/practicalli-john)
+[![Quality Checks](https://github.com/practicalli/clojure-cli-config/actions/workflows/quality-checks.yaml/badge.svg)](https://github.com/practicalli/clojure-cli-config/actions/workflows/quality-checks.yaml)
+[![MegaLinter](https://github.com/practicalli/clojure-cli-config/actions/workflows/megalinter.yaml/badge.svg)](https://github.com/practicalli/clojure-cli-config/actions/workflows/megalinter.yaml)
+
+<div style="width:95%; margin:auto;">
+  <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png" /></a>
+  Creative Commons Attribution 4.0 ShareAlike License
+</div>
+
+
+## Format Clojure
+
+[cljstyle](https://github.com/greglook/cljstyle) is a format tool for Clojure files that supports the Clojure Style Guide, using the [.cljstyle configuration file](https://github.com/practicalli/clojure-cli-config/blob/main/.cljstyle)
+
+
+## Contents
+
+* [Install Practicalli Clojure CLI Config](#install-practicalli-clojure-cli-config)
+* [Updating practicalli/clojure-cli-config](#update-practicalli-clojure-cli-config)
 * [Common development tasks](#common-development-tasks)
-* [Aliases](#aliases)
-    * [REPL Terminal UI](#repl-terminal-ui) | [REPL with Editor](#repl-with-editor) | [Remote REPL Connection](#remote-repl-connection) | [Alternative REPLs](#alternative-repls) | [Projects](#clojure-projects) | [Formatting](#formatting) [Java sources](#java-sources) | [Databases](#databases-and-drivers) | [Data Inspectors](#data-inspectors) | [Middleware](#middleware) | [Clojure Spec](#clojure-specification) | [Unit Testing](#unit-testing-frameworks) | [Test runners](#test-runners-and-test-coverage-tools) | [Lint tools](#lint-tools) | [Visualize vars and deps](#visualizing-project-vars-and-library-dependencies) | [Performance testing](#performance-testing) | [Serices](#services)
-* [Library repositories](#library-repositories)
-* [Experimental](#experimental)
+* [REPL Terminal UI](#repl-terminal-ui) I
+  * [Hotload dependencies](#hotload-libraries) I [Remote REPL Connection](#remote-repl-connection) I [Socket REPL](#socket-repl)
+* [Development Environment](#development-environment)
+* [Clojure Projects](#clojure-projects)
+  * [Dependencies](#project-dependencies) I [Analysis](#project-analysis) I [Packaging](#project-packaging) I [Deployment](#project-deployment)
+  * [Searching](#searching)
+  * [Format](#format-code) I [Lint](#lint-tools)
+  * [Java sources](#java-sources)
+* [Testing](#unit-testing-frameworks)
+  * [Test runners](#test-runners-and-test-coverage-tools) I [Clojure Spec](#clojure-specification) I [Performance](#performance-testing) I [Security](#security)
+* [Databases](#databases-and-drivers)
+* [Data Inspectors](#data-inspectors)
+  * [Visualise vars and deps](#visualising-project-vars-and-library-dependencies)
+* [Debug](#debug-tools)
+* [Services](#services)
+* [Library Hosting Services](#library-hosting-services) - maven mirrors, local repositories
 
-# For use with [Clojure CLI tools version 1.10.1.697](https://clojure.org/guides/getting_started) or above
-Check the version of Clojure CLI tools currently installed
+
+## Install Practicalli Clojure CLI Config
+
+[Clojure CLI](https://clojure.org/guides/install_clojure) version **1.11.1.xxxx** or later is recommended. Check the version of Clojure CLI currently installed via:
+
 ```shell
 clojure -Sdescribe
 ```
 
+> [Practicalli guide to installing Clojure](https://practical.li/clojure/install/clojure-cli/) has detailed instructions to install Clojure CLI for a specific operating system, or follow the [Clojure.org Getting Started page](https://clojure.org/guides/getting_started).
 
-# Install Practicalli clojure-deps-edn
-Clojure CLI tools creates a configuration directory called `.clojure`, which [by default](https://clojure.org/reference/deps_and_cli#_deps_edn_sources) is placed in the root of the operating system user account directory, e.g. `$HOME/.clojure`.
+When Clojure CLI runs for the first time a configuration directory is created in `$XDG_CONFIG_HOME/clojure` or `$HOME/.clojure` if [XDG_CONFIG_HOME](https://specifications.freedesktop.org/basedir-spec/basedir-spec-latest.html "FreeDesktop.org specification") not set
 
-`XDG_CONFIG_HOME` may be set by your operating system and over-rides the default location, e.g. `$HOME/.config/.clojure`
+> Practicalli recommends setting `$XDG_CONFIG_HOME` to `$HOME/.config`
 
-`CLJ_CONFIG` can be used to over-ride all other location settings
+Backup or delete the Clojure CLI configuration directory if it exists
 
-> Check the location of your Clojure configuration directory by running `clojure -Sdescribe` and checking the `:config-user` value.
-
-
-Fork the practicalli/clojure-deps-edn repository and clone your fork to an existing `.clojure/` directory (eg. `$HOME/.clojure` or `%HOME%\.clojure`).
+Clone [practicalli/clojure-cli-config](https://github.com/practicalli/clojure-cli-config) repository (or create a fork and clone that instead)
 
 ```shell
-git clone your-fork-url ~/.clojure/
+git clone git@github.com:practicalli/clojure-cli-config.git $XDG_CONFIG_HOME/clojure
 ```
 
-The configuration from `.clojure/deps.edn` is now available for all Clojure CLI projects for that user account.
+> If $XDG_CONFIG_HOME not set, then use `git clone git@github.com:practicalli/clojure-cli-config.git $HOME/.clojure`
+
+The `deps.edn` file in the Clojure CLI configuration directory contains all the Practicalli aliases, which are available from any Clojure CLI project for the current user account.
+
+> Windows support:  Windows Sub-system for Linux (WSL) is strongly encouraged.  Aliases should also work on Powershell or cmd.exe, although [escape quoting of additional arguments](https://clojure.org/reference/deps_and_cli#quoting) may be required.
 
 
-# Using Practicalli clojure-deps-edn
+### Location of local Maven repository
+
+`$HOME/.m2/repository` is the default location of the local maven repository, the directory where library dependency jar files are cached.
+
+`:mvn/local-repo` is a top-level key to set the local maven repository location, such as `/home/practicalli/.cache/maven/repository` to follow the XDG specification.  If setting `:mvn/local-repository`, consider moving the contents of `$HOME/.m2/repository` to the new location to avoid downloading currently cached jar files (or use this as an opportunity to clear out the cache).
+
+
+### Update Practicalli Clojure CLI Config
+
+The collection of aliases is regularly reviewed and additional alias suggestions and PRs are most welcome.
+
+The versions of libraries are updated at least once per month using the `:project/outdated` alias, updating the `deps.edn` file.  The [antq tool](https://github.com/liquidz/antq) is used to report new library versions, sent to an org file which is then used to update the changelog.
+
+```shell
+cd $XDG_CONFIG_HOME/clojure
+clojure -T:search/outdated > outdated.org
+```
+
+> Pull Requests from `:search/outdated` cannot be accepted unless full testing of every change can be demonstrated
+
+
+## Using Practicalli Clojure CLI Config
+
 Any directory containing a `deps.edn` file is considered a Clojure project. A `deps.edn` file can contain an empty hash-map, `{}` or hash-map with configuration, usually `:paths` and `:dependencies` and perhaps some `:aliases`.
 
 The project `deps.edn` file is merged with the user wide configuration, e.g `$HOME/.clojure/deps.edn`, with the project `deps.edn` keys taking precedence if there is duplication, otherwise they are merged.
 
 Configuration passed via the command line when running `clojure` or the `clj` wrapper will take precedence over the project and user level configuration if there is duplication, otherwise they are merged.
 
-![Clojure CLI tools deps.edn configuration precedence](https://raw.githubusercontent.com/practicalli/graphic-design/live/clojure/clojure-cli-tools/clojure-cli-tools-deps-edn-configuration-precedence.png)
+![Clojure CLI tools deps.edn configuration precedence](https://raw.githubusercontent.com/practicalli/graphic-design/live/clojure/clojure-cli/clojure-cli-configuration-precedence.png)
 
 See the rest of this readme for examples of how to use each alias this configuration contains.
 
 
-# Updating Practicalli clojure-deps-edn
-The collection of aliases is regularly reviewed and expanded upon and suggestions are most welcome.
+## Common development tasks
 
-The versions of libraries are manually updated at least once per month using the `:outdated` alias and a new version of the `deps.edn` file pushed to this repository.  The antq project is used to report new library versions, sent to an org file which is then used to update the changelog.
-
-```shell
-cd ~/.clojure/
-clojure -M:project/outdated > outdated.org
-```
-
-# Common development tasks
 How to run common tasks for Clojure development.
+
 * Built-in tasks require no additional configuration.
 * User aliases should be added to `~/.clojure/deps.edn`.
-* Project aliases should be added to the individual project deps.edn file (or may be part of a template).
-* User/Project alias can be defined in both user and project deps.edn files (typically added to project deps.edn for external running such as Continuous Integration)
+* Project aliases should be added to the individual project `deps.edn` file (or may be part of a template).
+* User/Project alias can be defined in both user and project `deps.edn` files (add to project `deps.edn` for Continuous Integration)
 
-| Task                                                    | Command                                                         | Configuration      |
-|---------------------------------------------------------|-----------------------------------------------------------------|--------------------|
-| Create project (clojure exec)                           | `clojure -X:project/new :template app :name practicalli/my-app` | User alias         |
-| Run REPL (rebel readline)                               | `clojure -M:repl/rebel`                                         | User alias         |
-| Run REPL (rebel and nrepl)                              | `clojure -M:repl/rebel-nrepl`                                   | User alias         |
-| Run REPL (rebel and reveal data visualization)          | `clojure -M:repl/rebel-reveal`                                  | User alias         |
-| Download dependencies                                   | `clojure -Spath` or `clojure -P`  (plus optional aliases)       | Built-in           |
-| Find libraries (mvn & git)                              | `clojure -M:project/find-deps library-name`                     | User alias         |
-| Generate image of project dependency graph              | `clojure -X:project/graph-deps`                                 | User alias         |
-| Check for new dependency versions                       | `clojure -M:project/outdated`                                   | User alias         |
-| Run tests                                               | `clojure -M:test/runner`                                        | User/Project alias |
-| Run the project                                         | `clojure -M -m domain.main-namespace`                           | Built-in           |
-| [Run the project](https://youtu.be/u5VoFpsntXc?t=2166)* | `clojure -X:project/run`                                        | Project alias      |
-| Package library                                         | `clojure -X:project/jar`                                        | User/Project alias |
-| Deploy library locally                                  | `clojure -X:deps mvn-install`                                   | Built-in           |
-| Package application                                     | `clojure -X:project/uberjar`                                    | User/Project alias |
-
-> Add alias `:project/run` to the deps.edn file in the root of a project: `:project/run {:ns-default domain.namespace :exec-fn -main}` - see this video for an example https://youtu.be/u5VoFpsntXc?t=2166
-
-> Most aliases use the `-M` flag.  Only use the `-X` flag when you know it is supported by that task
-
-
-# Aliases
-Aliases provide additional configuration when running a REPL, an application or to use a community tool.
-
-* add or remove dependencies
-* add or remove directories on the class path
-* define a function or main namespace to run, along with arguments
-
-## Clojure CLI main flag options
-| Flag            | Purpose                                                  | Config used                                          |
-|-----------------|----------------------------------------------------------|------------------------------------------------------|
-| `-M`            | Run Clojure project with clojure.main                    | deps, path, `:main-opts` & command line args         |
-| `-P`            | Prepare / dry run (CI servers, Containers)               | deps, path                                           |
-| `-P -M:aliases` | Prepare / dry run including alias deps and paths         | deps, path                                           |
-| `-P -X:aliases` | Prepare / dry run including alias deps and paths         | deps, path                                           |
-| `-X`            | Execute a qualified function, optional default arguments | deps, path, `:exec-fn`, `:exec-args` & :key val args |
-| `-J`            | Java Virtual Machine specific options (menory size, etc) |                                                      |
-
-* deps = `:deps`, `:extra-deps`, `replace-deps`
-* path = `:path`, `:extra-paths`, `replace-paths`
+| Task                                               | Command                                                                                 | Configuration |
+|----------------------------------------------------|-----------------------------------------------------------------------------------------|---------------|
+| Create project (clojure exec)                      | `clojure -T:project/create :template practicalli/appplication :name practicalli/my-app` | Practicalli   |
+| Run REPL (rebel readline with nrepl server)        | `clojure -M:repl/rebel`                                                                 | Practicalli   |
+| Run ClojureScript REPL with nREPL (editor support) | `clojure -M:repl/cljs`                                                                  | Practicalli   |
+| Download dependencies                              | `clojure -P`  (followed by optional aliases)                                            | Built-in      |
+| Find libraries (Clojars & Maven Central)           | `clojure -M:search/libraries qualified-lib rary-name(s)`                                | Practicalli   |
+| Find available versions of a library               | `clojure -X:deps find-versions :lib domain/library-name`                                | Built-in      |
+| Resolve git coord tags to shas and update deps.edn | `clojure -X:deps git-resolve-tags git-coord-tag`                                        | Built-in      |
+| Generate image of project dependency graph         | `clojure -T:project/graph-deps`                                                         | Practicalli   |
+| Check library dependencies for newer versions      | `clojure -T:search/outdated`                                                            | Practicalli   |
+| Run tests / watch for changes                      | `clojure -X:test/run` / `clojure -X:test/watch`                                         | Practicalli   |
+| Run the project  (clojure.main)                    | `clojure -M -m domain.main-namespace`                                                   | Built-in      |
+| Deploy library locally (~/.m2/repository)          | `clojure -X:deps mvn-install :jar '"project.jar"'`                                      | Built-in      |
 
 
 ## REPL terminal UI
-Run an interactive REPL on the command line with the simple REPL UI or [Rebel readline](https://github.com/bhauman/rebel-readline) for a feature rich REPL experience.
-nREPL server is started by default, so that editors and other command line sessions can connect to the same REPL.
 
-See [Middleware aliases](#middleware) to run a headless REPL process without a REPL UI
+Run an interactive REPL on the command line with the basic built-in REPL UI or [Rebel](https://practical.li/clojure/clojure-cli/repl/) for a feature rich REPL experience.
 
-Use the `:env/dev` alias with the :repl aliases to include `dev/` in classpath and [configure REPL startup actions using `dev/user.clj`](http://practicalli.github.io/clojure/clojure-tools/configure-repl-startup.html)
+nREPL server is started for all Clojure repl aliases along with the cider-nrepl middleware, so Clojure editors can connect to the REPL process started on the command line.
 
-| Command                            | Description                                                                                                    |
-|------------------------------------|----------------------------------------------------------------------------------------------------------------|
-| `clojure -M:repl/rebel`            | Run a Clojure REPL using Rebel Readline                                                                        |
-| `clojure -M:env/dev:repl/rebel`    | Run a Clojure REPL using Rebel Readline, including deps and path from `:env/dev` alias to configure REPL start |
-| `clojure -M:repl/rebel-cljs`       | Run a ClojureScript REPL using Rebel Readline                                                                  |
+| Command                        | Description                                                                        |
+|--------------------------------|------------------------------------------------------------------------------------|
+| `clojure -M:repl/rebel`        | Rebel Rich terminal UI Clojure REPL with nREPL for connecting editors              |
+| `clojure -M:repl/basic`        | Basic terminal UI Clojure REPL with nREPL for connecting editors                   |
+| `clojure -M:repl/reloaded`     | As above with `dev` path, library hotload, namespace reload, Portal data inspector |
+| `clojure -M:repl/cljs`         | Basic terminal UI ClojureScript REPL using Rebel Readline                          |
+| `clojure -M:repl/rebel-cljs`   | Rich terminal UI ClojureScript REPL using Rebel Readline                           |
+| `clojure -M:repl/figwheel`     | Rich terminal UI ClojureScript REPL using Rebel Readline with Figwheel built tool  |
+| `clojure -M:repl/headless`     | REPL without prompt, include nREPL for connecting editors                          |
+| `clojure -M:repl/rebel-remote` | Connect to a remote REPL via nREPL with Rebel Rich terminal UI                     |
+| `clojure -M:repl/remote`       | As above with basic prompt                                                         |
 
-`:repl/help` in the Rebel UI for help and available commands.  `:repl/quit` to close the REPL.
+> Use `:env/dev`  with the `:repl/rebel` aliases to include `dev/` in classpath and [configure REPL startup actions using `dev/user.clj`](https://practical.li/clojure/clojure-cli/repl-startup/)
 
-> [Data Inspectors](#data-inspectors) section defines `:inspect/reveal` alias for a Reveal REPL with visualization, along with other data visualization tools.
+## Hotload Libraries
 
+`clojure -M:repl/reloaded` provides common tools to [enhance the REPL workflow](https://practical.li/clojure/clojure-cli/repl-reloaded/) (hotload libraries, refresh code changes, inspect data, advanced test runner, log & trace)
 
-## REPL with Editor
-Run an interactive REPL on the command line with the simple terminal UI, including an nREPL server and Cider libraries to support connections from Clojure editors, e.g. Conjure, CIDER and Calva.
-
-| Command                            | Description                                                                                                    |
-|------------------------------------|----------------------------------------------------------------------------------------------------------------|
-| `clojure -M:repl/nrepl`            | Clojure REPL with nREPL server                                                                                 |
-| `clojure -M:repl/cider`            | Clojure REPL with nREPL server and Cider-nrepl (code completion, pretty print, etc.)                   |
-| `clojure -M:repl/cider-refactor`   | Clojure REPL with nREPL server, Cider-nrepl and clj-refactor
-| `clj -M:repl/reveal-nrepl`         | Run a Clojure REPL with Reveal data visualization and nREPL interactively                                     |
-| `clj -M:repl/reveal-light-nrepl`   | Run a Clojure REPL with Reveal data visualization (light theme) and nREPL interactively                        |
+Use `:dev/reloaded` with Editor jack-in commands or other aliases to start a REPL process, e.g. `clj -M:dev/reloaded:repl/basic` for a reloaded REPL workflow with a basic terminal REPL prompt.
 
 
-## Remote REPL connection
+### Remote REPL connection
+
 Connect to the nREPL server of a remote REPL using nREPL connect, using a simple terminal UI
 
-`clj -M:repl/remote --host hostname --port 12345`
+```shell
+clojure -M:repl/remote --host hostname --port 12345
+```
 
 As above but using the enhanced Rebel Readline UI
 
-`clj -M:repl/rebel-remote --host hostname --port 12345`
+```shell
+clojure -M:repl/rebel-remote --host hostname --port 12345
+```
 
 
+## Socket REPL
 
-## Alternative REPLs
-Clojure 1.10.x onward can [run a Socket Server](https://clojure.org/reference/repl_and_main#_launching_a_socket_server) for serving a socket-based REPL (Clojure and ClojureScript).  [tubular](https://github.com/mfikes/tubular) is a Socket Server client for Clojure and Clojurescript REPLs.
+Clojure 1.10.x onward can [run a Socket Server](https://clojure.org/reference/repl_and_main#_launching_a_socket_server) for serving a socket-based REPL (Clojure and ClojureScript).
 
-PREPL is a REPL with structured output.  See [Cloure socket prepl cookbook](https://oli.me.uk/clojure-socket-prepl-cookbook/) for examples.
+[tubular](https://github.com/mfikes/tubular) is a Socket Server client for Clojure and Clojurescript REPL processes.
 
 | Command                          | Description                                                                     |
 |----------------------------------|---------------------------------------------------------------------------------|
@@ -173,43 +221,54 @@ PREPL is a REPL with structured output.  See [Cloure socket prepl cookbook](http
 | `clojure -M:repl/socket-node`    | ClojureScript REPL using Socket Server on port 55555                            |
 | `clojure -M:repl/socket-browser` | ClojureScript REPL using Socket Server on port 58585                            |
 | `clojure -M:repl/socket-client`  | Socket REPL client on port 50505 ([tubular](https://github.com/mfikes/tubular)) |
-| `clojure -M:repl/prepl`          | Clojure REPL using PREPL Server on port 40404                                   |
-| `clojure -M:repl/prepl-cljs`     | Clojure REPL using PREPL Server on port 44444                                   |
-|                                  |                                                                                 |
+
+
+## Development Environment
+
+Environment settings and libraries to support REPL driven development
+
+* `:env/dev` - add `dev` directory to class path - e.g. include `dev/user.clj` to [configure REPL startup](https://practical.li/clojure/clojure-cli/repl-startup/)
+* `:dev/reloaded` - reloaded workflow, `dev` and `test` paths, testing libraries
+* `:lib/hotload` - include `org.clojure/tools.deps.alpha` add-libs commit to [hotload libraries into a running REPL](https://practical.li/clojure/clojure-cli/repl-reloaded/)
+* `:lib/tools-ns` - include `org.clojure/tools.namespace` to refresh the current namespace in a running REPL
+* `:lib/reloaded` - combination of hotload and tools-ns aliases
+* `:lib/pretty-errors` - highlight important aspects of error stack trace using ANSI formatting
 
 
 ## Clojure Projects
-- Create projects from deps, leiningen and boot templates with [clj-new](https://github.com/seancorfield/clj-new)
-- Check and update project dependencies
-- Package projects as jar and uberjars
-- Deploy projects locally and to Clojars
 
-### Create new projects from templates
-* `:project/new` - create a new project from a template
+Create Clojure CLI configured projects, either built-in or [practicalli/project-templates](https://github.com/practicalli/project-templates) to provide [REPL Reloaded tools](https://practical.li/clojure/clojure-cli/repl-reloaded/) and production-level CI workflows.
 
-Create a new project (via clojure.main - classic approach - recommended for Windows to ensure template arguments are parsed correctly)
-```shell
-clojure -M:project/new luminus practicalli/full-stack-app +http-kit +h2 +reagent +auth
-```
+Default values (can be over-ridden on the command line)
 
-Create a new project (Edn command line arguments - recommended approach - except for Windows)
-| Command                                                                                                 | Description                                          |
-|---------------------------------------------------------------------------------------------------------|------------------------------------------------------|
-| `clojure -X:project/new`                                                                                | library project called playground                    |
-| `clojure -X:project/new :name practicalli/my-library`                                                   | library project with given name                      |
-| `clojure -X:project/new :template app :name practicalli/my-application`                                 | App project with given name                          |
-| `clojure -X:project/new :template luminus :name practicalli/full-stack-app :args '["+http-kit" "+h2"]'` | Luminus project with given name and template options |
-| `clojure -X:project/new :template figwheel-main :name practicalli/landing-page :args '["--reagent"]'`   | ClojureScript Figwheel-main project with reagent     |
+* `:template project/application` template, includes REPL Reloaded workflow, GitHub workflows, Dockerfile & compose.yaml, Makefile tasks
+* `:name practicalli/playground` creates a practicalli domain containing `playground` namespace and example Clojure code
+
+| Command                                                         | Description                               |
+|-----------------------------------------------------------------|-------------------------------------------|
+| `clojure -T:project/create :template app :name domain/app-name` | A simple application                      |
+| `clojure -T:project/create`                                     | Practicalli application called playground |
+| `clojure -T:project/create :template practicalli/service`       | Practicalli Service called playground     |
+
+
+> `:project/new` - uses [clj-new](https://github.com/seancorfield/clj-new) which is an archived project, although can still be used to create projects using Leiningen style templates.  A Clojure CLI configuration must be manually added if these templates do not provide one.
+
+
+| `clojure -T:project/new :template app :name practicalli/my-application`                                 | App project with given name                          |
+| `clojure -T:project/new :template luminus :name practicalli/full-stack-app :args '["+http-kit" "+h2"]'` | Luminus project with given name and template options |
+| `clojure -T:project/new :template figwheel-main :name practicalli/landing-page :args '["--reagent"]'`   | ClojureScript Figwheel-main project with reagent     |
+
 
 ### Running projects
 
-Run project with or without an alias:
+Run project using clojure.main with or without an alias:
+
 ```shell
-clojure -M:alias -m domain.app-name
+clojure -M:alias-name -m domain.app-name
 clojure -M -m domain.app-name
 ```
 
-> The `-M` flag is required even if an alias is not included in the running of the application.  A warning will be displayed if the `-M` option is missing.
+> The `-M` flag specified running the Clojure code with clojure.main library, so `-M'` is required even if an alias is not included in the running of the application.  A warning will be displayed if the `-M` option is missing.
 
 In the project deps.edn file it could be useful to define an alias to run the project, specifying the main namespace, the function to run and optionally any default arguments that are passed to that function.
 
@@ -219,30 +278,32 @@ In the project deps.edn file it could be useful to define an alias to run the pr
  :exec-fn -main
  :exec-args {:port 8888}}
 ```
-Then the project can be run using `clojure -X:project/run` and arguments can optionally be included in this command line, to complement or replace any default aruments in `exec-args`.
+
+Then the project can be run using `clojure -X:project/run` and arguments can optionally be included in this command line, to complement or replace any default arguments in `exec-args`.
 
 ## Project dependencies
 
 * [`:project/check`](https://github.com/athos/clj-check.git) - detailed report of compilation errors for a project
 * [`:project/graph-deps`](https://github.com/clojure/tools.deps.graph) - graph of project dependencies (png image)
-* [`:project/find-deps`](https://github.com/hagmonk/find-deps) - fuzzy search for libraries to add as dependencies
-* [`:project/outdated`](https://github.com/liquidz/antq) - report newer versions for maven and git dependencies
-* [`:project/outdated-mvn`](https://github.com/slipset/deps-ancient) - check for newer dependencies (maven only)
+* [`:search/libraries`](https://github.com/hagmonk/find-deps) - fuzzy search for libraries to add as dependencies
+* [`:search/outdated`](https://github.com/liquidz/antq) - report newer versions for maven and git dependencies
+* [`:search/outdated-mvn`](https://github.com/slipset/deps-ancient) - check for newer dependencies (maven only)
 
-| Command                                              | Description                                                          |
-|------------------------------------------------------|----------------------------------------------------------------------|
-| `clojure -M:project/outdated`                        | report newer versions for maven and git dependencies                 |
-| `clojure -M:project/outdated-mvn`                    | check for newer dependencies (maven only)                            |
-| `clojure -M:project/check`                           | detailed report of compilation errors for a project                  |
-| `clojure -M:project/find-deps library-name`          | fuzzy search Maven & Clojars                                         |
-| `clojure -M:project/find-deps -F:merge library-name` | fuzzy search Maven & Clojars and save to project deps.edn            |
-| `clojure -X:project/graph-deps`                      | generate png image of project dependencies from projet deps.edn file |
-| `clojure -M:project/outdated`                        | report newer versions for maven and git dependencies                 |
-| `clojure -M:project/outdated-mvn`                    | check for newer dependencies (maven only)                            |
+| Command                                             | Description                                               |
+|-----------------------------------------------------|-----------------------------------------------------------|
+| `clojure -M:project/check`                          | detailed report of compilation errors for a project       |
+| `clojure -M:search/libraries library-name`          | fuzzy search Maven & Clojars                              |
+| `clojure -M:search/libraries -F:merge library-name` | fuzzy search Maven & Clojars and save to project deps.edn |
+| `clojure -T:search/outdated`                        | report newer versions for maven and git dependencies      |
+| `clojure -M:search/outdated-mvn`                    | check for newer dependencies (maven only)                 |
+
+> `:search/libraries` will show warnings about unqualified libraries the first time it is used, which can safely be ignored
 
 
 ## Project analysis
-[Carve](https://github.com/borkdude/carve) - static analysis of code (clj-kondo) and remove or report unused vars
+
+[Carve](https://github.com/borkdude/carve) - static analysis of code
+(clj-kondo) and remove or report unused vars
 
 * [`:project/carve`](https://github.com/borkdude/carve.git) - remove / report unused vars
 * [`:project/unused`](https://github.com/borkdude/carve.git) - alternative alias name for :project/carve
@@ -254,41 +315,29 @@ Then the project can be run using `clojure -X:project/run` and arguments can opt
 | `clojure -M:project/unused --opts '{:paths ["src" "test"] :report {:format :text}} '` | report unused vars from the src and test paths |
 
 Generate report in a file:
+
 ```shell
 clojure -M:project/unused --opts '{:paths ["src" "test"] :report {:format :ignore}}' > .carve/ignore
 ```
 
 ### Project packaging
-Build a project archive file for deployment
 
-* [:project/jar](https://github.com/seancorfield/depstar) - build jar for deps.edn project
-* [:project/uberjar](https://github.com/seancorfield/depstar) - build uberjars for deps.edn project
-* [:project/uberdeps](https://github.com/tonsky/uberdeps) - uberjar builder
-
-| Command                                                  | Description                                                  |
-|----------------------------------------------------------|--------------------------------------------------------------|
-| `clojure -X:project/jar :main-class domain.app-name`     | package `project.jar` for deps.edn project (publish library) |
-| `clojure -X:project/uberjar :main-class domain.app-name` | package `uber.jar` for deps.edn project (deploy application) |
-
-Additionally specify `:jar` name and if ahead of time compilation should be used (default true)
-
-```clojure
-clojure -X:project/jar :jar '"practicalli.app.jar"' :aot false :main-class domain.app-name
-```
+[tools.build](https://practical.li/clojure/clojure-cli/projects/tools-build/) is a library for creating scripts to manage packaging the projects to a fine level of control.  Projects start with common tasks for builind a jar or uberjar from the project.
 
 
 ### Project Deployment
-Deploy a project archive file locally or to Clojars.org
 
-* [`-X:deps mvn-install`](https://insideclojure.org/2020/09/04/clj-exec/) - built-in Clojure CLI alias to deploy a Jar locally in the `~/.m2/repository` directory
+Deploy a library jar locally  using the built-in `:deps` alias of Clojure CLI or to Clojars.org using [slipset/deps-deploy](https://github.com/slipset/deps-deploy) project.
+
+* [`-X:deps mvn-install`](https://clojure.org/reference/deps_and_cli#_local_maven_install) built-in Clojure CLI alias to deploy a Jar locally in the `~/.m2/repository` directory
 * [:deploy/clojars](https://github.com/slipset/deps-deploy) - deploy jar to [clojars.org](https://clojars.org/)
 * [:deploy/clojars-signed](https://github.com/slipset/deps-deploy) - sign and deploy jar to [clojars.org](https://clojars.org/)
 
-| Command                                         | Description                                                              |
-|-------------------------------------------------|--------------------------------------------------------------------------|
-| `clojure -X:deps mvn-install project.jar`       | [NEW] deploy jar file to local maven repository, i.e. `~/.m2/repository` |
-| `clojure -M:project/clojars project.jar`        | deploy jar file to Clojars                                               |
-| `clojure -M:project/clojars-signed project.jar` | deploy signed jar file to Clojars                                        |
+| Command                                            | Description                                                        |
+|----------------------------------------------------|--------------------------------------------------------------------|
+| `clojure -X:deps mvn-install :jar '"project.jar"'` | deploy jar file to local maven repository, i.e. `~/.m2/repository` |
+| `clojure -M:project/clojars project.jar`           | deploy jar file to Clojars                                         |
+| `clojure -M:project/clojars-signed project.jar`    | deploy signed jar file to Clojars                                  |
 
 Set Clojars username/token in `CLOJARS_USERNAME` and `CLOJARS_PASSWORD` environment variables.
 
@@ -296,59 +345,92 @@ Set fully qualified artifact-name and version in project `pom.xml` file
 
 Path to project.jar can also be set in alias to simplify the Clojure command.
 
-> `clojure -X:deps mvn-install project.jar` for local deployment of jars is part of the 1.10.1.697 release of the [Clojure CLI tools](https://clojure.org/guides/getting_started) in September 2020.
+> `clojure -X:deps mvn-install :jar '"project.jar"'` for [local deployment of jars](https://clojure.org/reference/deps_and_cli#_local_maven_install) is part of the 1.10.1.697 release of the [Clojure CLI](https://clojure.org/guides/getting_started) in September 2020.
 
 
-## Formatting
+## Searching
 
-* `:format/zprint filename` - format clojure code and Edn data structures in the given file
+Tools to search through code and libraries
 
+* `-M:search/errors` [clj-check](https://github.com/athos/clj-check.git) - search each namespace and report compilation warnings and errors
+* `-M::search/unused-vars` [Carve](https://github.com/borkdude/carve) - search code for unused vars and remove them - optionally specifying paths `--opts '{:paths ["src" "test"]}'`
+* `-M:search/libraries` - [find-deps](https://github.com/hagmonk/find-deps) - fuzzy search Maven & Clojars and add deps to deps.edn
+* `-T:search/outdated` -  [liquidz/antq](https://github.com/liquidz/antq) - check for newer versions of libraries, updating `deps.edn` if `:update true` passed as argument
+
+
+### Searching library options
+
+A fuzzy search for a library by name, passing multiple names to search for
+
+```bash
+clojure -M:search/libraries http-kit ring compojure
+```
+
+Add the matching library as a dependency into the project `deps.edn` file
+
+clojure -M:search/libraries --format:merge http-kit
+
+
+## Format code
+
+* `:lib/pprint-sorted` - pretty printing with sorted keys and set values
+* `:format/cljstyle` - check format of all Clojure, Edn and ClojureScript files in the project or a given file and show a diff of format changes
+* `:format/cljstyle!` - automatically correct format of all Clojure, Edn and ClojureScript files in the project or a given file
+* `:format/zprint` - check format of Clojure code and Edn data structures in the given file, or use file pattern `**/*.clj **/*.edn`
+* `:format/zprint!` - format Clojure code and Edn data structures in the given file, or use file pattern `**/*.clj **/*.edn`
+* `:format/cljfmt` - check clojure code and Edn data structures in the given file(s) using cljfmt
+* `:format/cljfmt!` - format clojure code and Edn data structures in the given file(s) using cljfmt
 
 ## Java Sources
-Include Java source on the  classpath to [look up Java Class and method definitions, eg. `cider-find-var` in Emacs](https://practicalli.github.io/spacemacs/navigating-code/java-definitions.html)
-Requires: Java sources installed locally (e.g. "/usr/lib/jvm/openjdk-11/lib/src.zip")
 
-* `:lib/java8-source`
-* `:lib/java11-source`
+Include Java source on the  classpath to [look up Java Class and method definitions, eg. `cider-find-var` in Emacs](https://practical.li/spacemacs/navigating-code/java-definitions/)
 
-Use the aliases with either `-M` or `-X` flags on the Clojure command line.
+Requires: Java sources installed locally (e.g. `"/usr/lib/jvm/openjdk-17/lib/src.zip"`)
+
+* `:src/java17`
+* `:src/clojure`
+
+Use the aliases with either `-A`, `-M` or `-X` execution options on the Clojure command line.
+
+> Clone [clojure/clojure](https://github.com/clojure-expectations/clojure-test) repository. Clojure core Java source code in [src/jvm/clojure/lang/](https://github.com/clojure/clojure/tree/master/src/jvm/clojure/lang "GitHub: Clojure core Java source code")
 
 
 ## Databases and drivers
+
 Databases and drivers, typically for development time inclusion such as embedded databases
 
 * `:database/h2` - H2 embedded database library and next.jdbc
 
-`clojure -M:database/h2` - run a REPL with an embedded H2 database and next.jdbc libraries
-
-https://cljdoc.org/d/seancorfield/next.jdbc/CURRENT/doc/getting-started#create--populate-a-database
+`clojure -M:database/h2` - [run a REPL with an embedded H2 database and next.jdbc libraries](https://cljdoc.org/d/seancorfield/next.jdbc/CURRENT/doc/getting-started#create--populate-a-database)
 
 Use the aliases with either `-M` or `-X` flags on the Clojure command line.
 
 ## Data Inspectors
-REPL driven data inspectors and `tap>` sources for visualizing data.
 
+REPL driven data inspectors and `tap>` sources for visualising data.
 
 ### [Portal](https://github.com/djblue/portal)
+
 Navigate data in the form of edn, json and transit
-[Practicalli Clojure -data browsers section - portal](https://practicalli.github.io/clojure/clojure-tools/data-browsers/portal.html)
+[Practicalli Clojure -data browsers section - portal](https://practical.li/clojure/data-inspector/portal/)
 
 * `inspect/portal-cli` - Clojure CLI (simplest approach)
 * `inspect/portal-web` - Web ClojureScript REPL
 * `inspect/portal-node` - node ClojureScript REPL
 
-| Command                          | Description                                            |
-|----------------------------------|--------------------------------------------------------|
-| `clojure -M:inspect/portal-cli`  | Clojure REPL with Portal dependency                    |
-| `clojure -M:inspect/portal-web`  | ClojureScript web browswer REPL with Portal dependency |
-| `clojure -M:inspect/portal-node** | ClojureScript node.js REPL with Portal dependency      |
+| Command                          | Description                                           |
+|----------------------------------|-------------------------------------------------------|
+| `clojure -M:inspect/portal-cli`  | Clojure REPL with Portal dependency                   |
+| `clojure -M:inspect/portal-web`  | ClojureScript web browser REPL with Portal dependency |
+| `clojure -M:inspect/portal-node` | ClojureScript node.js REPL with Portal dependency     |
+
 
 **Using Portal once running**
 `(require '[portal.api :as portal])` once the REPL starts.  For `inspect/portal-web` use `(require '[portal.web :as portal])` instead
 
 `(portal/open)` to open the web based inspector window in a browser.
 
-`(portal/tap) `to add portal as a tap target (add-tap)
+`(portal/tap)` to add portal as a tap target (add-tap)
 
 `(tap> {:accounts [{:name "jen" :email "jen@jen.com"} {:name "sara" :email "sara@sara.com"}]})` to send data to the portal inspector window (or any other data you wish to send)
 
@@ -357,140 +439,22 @@ Navigate data in the form of edn, json and transit
 `(portal/close)` to close the inspector window.
 
 
-### Reveal data inspector and visualization tool
-[Reveal](https://vlaaad.github.io/reveal/) - run a Terminal REPL with data visualisation or connect with nREPL, socket or prepl connection and use from any [Clojure aware editor]([Clojure aware editors](https://practicalli.github.io/clojure/clojure-editors/)).
-Reveal can also used as a `tap>` source for more powerful manual debugging.
+## Debug Tools
 
-* `:inspect/reveal` - visualisation with terminal REPL.
-* `:inspect/reveal-light` - as above with light theme and 32 point Ubuntu Mono font
-* `:inspect/reveal-nrepl` - visualization for [Clojure aware editors](https://practicalli.github.io/clojure/clojure-editors/) via an nrepl server
-* `:inspec/reveal-light-nrepl` - as above with light theme and 32 point Ubuntu Mono font
-* `:inspect/reveal-nrepl-cider` - visualization tool for Emacs Cider / Spacemacs / VSCode Calva
-* `:inspec/reveal-light-nrepl-cider` - as above with light theme and 32 point Ubuntu Mono font
+Emacs CIDER has a built in debug tool that requires no dependencies (other than Cider itself).
 
-| Command                                       | Description                                                                        |
-|-----------------------------------------------|------------------------------------------------------------------------------------|
-| `clojure -M:inspect/reveal`                   | start a Reveal repl with data visualization window (cloure.main)                   |
-| `clojure -M:inspect/reveal-light`             | as above with light theme and large font                                           |
-| `clojure -X:inspect/reveal`                   | start a Reveal repl with data visualization window (clojure exec)                  |
-| `clojure -X:inspect/reveal-light`             | as above with light theme and large font                                           |
-| `clojure -M:inspect/reveal-nrepl`             | Start nrepl server to use Cider / Calva editors with reveal                        |
-| `clojure -X:inspect/reveal-light-nrepl`       | as above with light theme and large font                                           |
-| `clojure -M:inspect/reveal-rebel`             | Start a Rebel REPL with Reveal Visualizations                                      |
-| `clojure -M:inspect/reveal-light-rebel`       | Start a Rebel REPL with Reveal Visualizations & light theme                        |
-| `clojure -M:inspect/reveal:repl/rebel`        | Start a Rebel REPL with Reveal dependency. Add reveal as tap> source               |
-| `clojure -M:inspect/reveal-light:repl/rebel** | Start a Rebel REPL with Reveal dependency & light theme. Add reveal as tap> source |
+[Sayid](https://github.com/clojure-emacs/sayid) is a comprehensive debug and profile tool (which requires your code to compile) and generated a full and detailed history of an evaluation.
 
-**Connecting nREPL based editors**
-Use the `:inspect/reveal-nrepl` alias when running the REPL, either in the terminal or via an nREPL based editor (CIDER, Calva, Conjure, Cursive, etc.)
+* `:repl/debug` run basic REPL prompt with sayid, and cider-nrepl middleware
+* `:repl/debug-refactor` run basic REPL prompt with sayid, clj-refactor and cider-nrepl middleware
+* `:repl/rebel-debug` run Rebel rich UI REPL prompt with sayid, and cider-nrepl middleware
+* `:repl/rebel-debug-refactor` run Rebel rich UI REPL prompt with sayid, clj-refactor and cider-nrepl middleware
 
-Alternatively, add an `.nrepl.edn` file to the root of a project to include the Reveal middleware
-```
-{:middleware [vlaaad.reveal.nrepl/middleware]}
-```
-
-**Cider jack-in and reveal**
-See the [Reveal section of Practicalli Clojure](https://practicalli.github.io/clojure-staging/clojure-tools/data-browsers/reveal.html#using-reveal-with-nrepl-editors) for full details, including how to set up a `.dir-locals.el` configuration.
-
-`:inspect/reveal-nrepl-cider` alias contains Reveal REPL with nrepl server and Emacs CIDER specific middleware
-
-`C-u cider-jack-in-clj` in CIDER to start a reveal REPL  (`SPC u , '` in Spacemacs)
-
-Edit the jack-in command by deleting the all the configuration after the `clojure` command and add the alias
-```
-clojure -M:inspect/reveal-nrepl-cider
-```
-
-`:inspect/reveal-nrepl-cider` is a light version of the above.
-
-
-**Running different types of repl**
-
-Using Clojure exec `-X` flag, the default repl function can be over-ridden on the command line, supplying the `io-prepl` or `remote-prepl` functions.
-
-* `clojure -X:inspect/reveal io-prepl :title '"I am a prepl repl"`
-* `clojure -X:inspect/reveal remote-prepl :title '"I am a remote prepl repl"'`
-
-**Configure theme & font**
-
-Add a custom theme and font via the `-J` command line option or create an alias using `:insepct/reveal-light` as an example.
-
-```shell
-clojure -M:inspect/reveal -J-Dvlaaad.reveal.prefs='{:theme :light :font-family "Ubuntu Mono" :font-size 32}'
-```
-
-**Rebel Readline & Reveal: Add Reveal as tap> source**
-
-Evaluate `(add-tap ((requiring-resolve 'vlaaad.reveal/ui)))` when using Rebel Readline to add Reveal as a tap source, showing `(tap> ,,,)` expressions in the reveal window, eg. `(tap> (map inc [1 2 3 4 5]))`.
-
-[Practicalli Clojure - data browsers section](http://practicalli.github.io/clojure/clojure-tools/data-browsers/reveal.html) has more details on using reveal.
-
-
-### Cognitect REBL
-Visualize the results of each evaluation in the REPL in the REBL UI.  Navigate through complex data structures.
-
-> Cognitect REBL aliases requires [several separate install steps](http://practicalli.github.io/clojure/alternative-tools/clojure-tools/cognitect-rebl.html) before they are operational
->
-> Tested on Oracle JDK 8 and OpenJDK 11 (current long term support).  Other Java 11 JDK distributions may work, but not tested. Newer (short term release) may work, but will need the `org.openjdk` library version in the `:inspect/rebl` alias changed to match the version of Java used.
-
-* `inspect/rebl` - REBL, a visual data explorer (Java 11)
-* `inspect/rebl-java8` - REBL, a visual data explorer (Oracle Java 8)
-
-| Command                                                    | Description                                                      |
-|------------------------------------------------------------|------------------------------------------------------------------|
-| `clojure -M:inspect/rebl`                                  | Start REBL REPL and UI (Java 11 only)                            |
-| `clojure -M:inspect/rebl-java8`                            | REBL REPL and UI  (Oracle Java 8 only)                           |
-| `clojure -M:lib/cider-nrepl:inspect/rebl:middleware/nrebl` | REBL REPL and UI with nREPL server (CIDER, Calva) (Java 11 only) |
-
-
-## Middleware
-Aliases for libraries that combine community tools and REPL protocols (nREPL, SocketREPL).
-
-Run a REPL on the command line for access by `cider-connect-` commands, providing the require cider middleware libraries that are auto-injected in `ccider-jack-in-` commands.
-
-### nREPL
-* `:middleware/nrepl` - Clojure REPL with an nREPL server
-* `:middleware/cider-clj` - Clojure REPL with nREPL server and CIDER dependencies for `cider-connect-clj`
-* `:middleware/cider-clj-refactor` - as :middleware/cider-clj with clj-refactor added
-* `:middleware/cider-cljs` - ClojureScript REPL with nREPL server and CIDER dependencies for `cider-connect-cljs`
-
-
-| Command                                    | Description                                                                                      |
-|--------------------------------------------|--------------------------------------------------------------------------------------------------|
-| `clojure -M:middleware/nrepl`              | Run a Clojure REPL that includes nREPL server                                                    |
-| `clojure -M:middleware/cider-clj`          | Run a Clojure REPL that includes nREPL server and CIDER connection dependencies                  |
-| `clojure -M:middleware/cider-clj-refactor` | Run a Clojure REPL that includes nREPL server and CIDER connection dependencies and clj-refactor |
-| `clojure -M:middleware/cider-cljs`         | Run a ClojureScript REPL that includes nREPL server and CIDER connection dependencies            |
-
-
-
-### Cognitect REBL with CIDER
-Run the REBL REPL with nREPL server so CIDER can connect.
-
-* `:middleware/nrebl` - REBL data browser on nREPL connection
-* `:lib/cider-nrepl` - include nrepl, cider-nrepl and refactor-nrepl library dependencies (support `:inspect/nrebl` alias)
-
-In a terminal, run REBL listening to nREPL using the command
-```shell
-clojure -M:lib/cider-nrepl:inspect/rebl:middleware/nrebl
-```
-
-`cider-connect-clj` in Spacemacs / Emacs and CIDER successfully connects to the nREPL port and evaluated code is sent to REBL.
-
-
-To start a REBL REPL from `cider-jack-in-clj` add a `.dir-locals.el` file to the root of a Clojure project. The `.dir-locals.el` configuration adds the nREBL aliases set via `cider-clojure-cli-global-options` and all other automatically injected configuration is disabled (to prevent those dependencies over-riding the nREBL aliases).
-```
-((clojure-mode . ((cider-preferred-build-tool . clojure-cli)
-                  (cider-clojure-cli-global-options . "-M:lib/cider-nrepl:inspect/rebl:middleware/nrebl")
-                  (cider-jack-in-dependencies . nil)
-                  (cider-jack-in-nrepl-middlewares . nil)
-                  (cider-jack-in-lein-plugins . nil)
-                  (cider-clojure-cli-parameters . ""))))
-```
-* [REBL data visualization: run REBL with nREPL based editors](http://practicalli.github.io/clojure/clojure-tools/data-browsers/rebl-data-visualization.html#run-rebl-for-nrepl-based-editors)
+[Practicalli Spacemacs - Sayid debug and profile tool](https://practical.li/spacemacs/debug-clojure/sayid-debug/) covers the use of these aliases in more detail
 
 
 ## Clojure Specification
+
 Clojure spec, generators and test.check
 
 * `:lib/spec-test` - generative testing with Clojure test.check
@@ -498,115 +462,110 @@ Clojure spec, generators and test.check
 
 
 ## Unit Testing frameworks
+
 Unit test libraries and configuration.  The Clojure standard library includes the `clojure.test` namespace, so no alias is required.
 
 * `:env/test` - add `test` directory to classpath
-* [`:lib/expectations`](https://github.com/clojure-expectations/clojure-test) - `clojure.test` with expectations
-* [`:lib/expectations-classic`](https://github.com/clojure-expectations/expectations) - expectations framework
-
-Use expectations in a project `clojure -A:test:expectations` or from the command line with cognitect test runner `clojure -A:expectations:test-runner-cognitect`
 
 
 ## Test runners and Test Coverage tools
-Tools to run unit tests in a project which are defined under `test` path.
 
-Run clojure with the specific test runner alias: `clojure -A:test-runner-alias`
+[Practicalli Clojure: Unit testing](https://practical.li/clojure/testing/) covers many aspects of testing for projects.  Kaocha is the main test runner used by Practicalli as it is simple to use and easily configurable to create an effective test workflow.
 
-| Command                                     | Description                                                                                |
-|---------------------------------------------|--------------------------------------------------------------------------------------------|
-| `clojure -M:test/cognitect`                 | Cognitect Clojure test runner                                                              |
-| `clojure -M:test/cljs`                      | ClojureScript test runner (Olical)                                                         |
-| `clojure -M:test/runner`                    | Kaocha - comprehensive test runner for Clojure (same as :test/kaocha)                      |
-| `clojure -M:env/test:test/kaocha`           | Kaocha - comprehensive test runner for Clojure                                             |
-| `clojure -M:env/test:test/kaocha-cljs`      | Kaocha - comprehensive test runner for ClojureScript                                       |
-| `clojure -M:env/test:test/kaocha-cucumber`  | Kaocha - comprehensive test runner with BDD Cucumber tests                                 |
-| `clojure -M:env/test:test/kaocha-junit-xml` | Kaocha - comprehensive test runner with Junit XML reporting for CI dashboards & wallboards |
-| `clojure -M:env/test:test/kaocha-cloverage` | Kaocha - comprehensive test runner with test coverage reporting                            |
-| `clojure -M:test/midje`                     | Midje test runner for BDD style tests                                                      |
-| `clojure -M:test/eftest`                    | Fast Clojure test runner, pretty output, parallel tests                                    |
-| `clojure -M:test/eftest-sequential`         | Fast Clojure test runner, pretty output with test run sequential
-| `clojure -M:test/coverage`                  | Cloverage clojure.test coverage report                                                     |
-| `clojure -X:test/coverage`                  | Cloverage clojure.test coverage report (clojure exec)                                      |
+Run unit tests in a project which are defined under the `test` path. See
 
-> Use a `test.edn` [configuration file](https://cljdoc.org/d/lambdaisland/kaocha/1.0.829/doc/3-configuration) with kaocha aliases will mean only test/kaocha and :test/kaocha-cljs aliases are needed.
+| Command                     | Description                                                                               |
+|-----------------------------|-------------------------------------------------------------------------------------------|
+| `clojure -X:test/run`       | run tests with the Kaocha comprehensive test runner for Clojure (same as :test/kaocha)    |
+| `clojure -X:test/watch`     | run tests in watch mode using Kaocha test runner for Clojure (same as :test/kaocha-watch) |
+| `clojure -X:test/cognitect` | Cognitect Clojure test runner                                                             |
+| `clojure -X:test/coverage`  | Cloverage clojure.test coverage report                                                    |
+| `clojure -M:test/cljs`      | ClojureScript test runner (Kaocha)                                                        |
 
-#### Compiling tests before running - automate Ahead of Time compilation
-Use one of the test runner alias and over-ride the :main-opts on the command line
-```shell
-clojure -M:test/cognitect -e "(compile, 'your.namespace)" -m cognitect.test-runner
-```
+`:lib/kaocha` alias adds kaocha as a library to the class path, enabling scripts such as kaocha-runner.el to run Kaocha test runner from Emacs Cider
 
-Or add the following alias in your project `deps.edn`, changing to the specific namespace in `:main-opts` before use
-```clojure
-  :test/cognitect-precompile
-  {:extra-paths ["test"]
-   :extra-deps  {com.cognitect/test-runner
-                 {:git/url "https://github.com/cognitect-labs/test-runner.git"
-                  :sha     "b6b3193fcc42659d7e46ecd1884a228993441182"}}
-   :main-opts   ["-e" "(compile,'your.namespace-here)"
-                 "-m" "cognitect.test-runner"]}
-```
+> A `test.edn` [configuration file](https://cljdoc.org/d/lambdaisland/kaocha/1.77.1236/doc/3-configuration) can be used with the :test/run alias instead of using various aliases defined above
 
 
 ## Lint tools
+
 Static analysis tools to help maintain code quality and suggest Clojure idioms.
 
-* [`:lint/kondo`](https://github.com/borkdude/clj-kondo/) - comprehensive and fast static analysis lint tool
+* [`:lint/clj-kondo`](https://github.com/borkdude/clj-kondo/) - comprehensive and fast static analysis lint tool
 * [`:lint/eastwood`](https://github.com/jonase/eastwood) - classic lint tool for Clojure
 * [`:lint/idiom-check`](https://github.com/jonase/kibit) - checking for idiomatic Clojure code with Kibit
 
-| Command                    | Description                                      |
-|----------------------------|--------------------------------------------------|
-| `clojure -M:lint/kondo`    | comprehensive and fast static analysis lint tool |
-| `clojure -M:lint/eastwood` | classic lint tool for Clojure                    |
-| `clojure -M:lint/idiom`    | Suggest idiomatic Clojure code                   |
+| Command                     | Description                                      |
+|-----------------------------|--------------------------------------------------|
+| `clojure -M:lint/clj-kondo` | comprehensive and fast static analysis lint tool |
+| `clojure -M:lint/eastwood`  | classic lint tool for Clojure                    |
+| `clojure -M:lint/idiom`     | Suggest idiomatic Clojure code                   |
 
 
-## Visualizing project vars and library dependencies
+## Visualising project vars and library dependencies
+
 Create [Graphviz](https://www.graphviz.org/) graphs of project and library dependencies
 
-Morpheus creates grahps of project vars and their relationships
+> Install [Graphviz](https://www.graphviz.org/) to generate PNG and SVG images. Or use the [Edotor website](https://edotor.net/) to convert .dot files to PNG or SVG images and select different graph layout engines.
+
+### Var dependencies
+
+Generate dependency graphs for Vars in Clojure & ClojureScript namespaces
 
 * [`:graph/vars`](https://github.com/benedekfazekas/morpheus) - generate graph of vars in a project as a .dot file
 * [`:graph/vars-png`](https://github.com/benedekfazekas/morpheus) - generate graph of vars in a project as a .png file using `src` and `test` paths
 * [`:graph/vars-svg`](https://github.com/benedekfazekas/morpheus) - generate graph of vars in a project as a .svg file using `src` and `test` paths
 
-> Install [Graphviz](https://www.graphviz.org/) to generate PNG and SVG images.  Or use the [Edotor website](https://edotor.net/) to convert .dot files to PNG or SVG images and select different graph layout engines.
+> Use `-f` command line argument to over-ride file type created, i.e `-f png`
+
+### Namespace dependencies
+
+[Vizns](https://github.com/SevereOverfl0w/vizns) creates graphs of relationships between namespaces and their dependencies
+
+* `clojure -M:graph/ns-deps` - generate a single deps-graph SVG image
+* `clojure -M:graph/ns-deps-png` as above with PNG image
+
+Other [options described in the visns project readme](https://github.com/SevereOverfl0w/vizns#usage):
 
 
-[Vizns](https://github.com/SevereOverfl0w/vizns) creates graphs of relationships between library dependencies and project namespaces
+### Project Dependency Relationships
 
-* `:graph/deps`
-* `:graph/deps-png` - generate a single deps-graph png image
+Visualise the relationships between dependencies in the project (or given `deps.edn` configuration).  Shows the fully qualified name of a dependency, its version and size.
 
-Other options:
-* `clojure -M:graph/deps navigate`  # navigable folder of SVGs
-* `clojure -M:graph/deps single`    # deps-graph.dot file
-* `clojure -M:graph/deps single -o deps-graph.png -f png`
-* `clojure -M:graph/deps single -o deps-graph.svg -f svg`
-* `clojure -M:graph/deps single --show `  # View graph without saving
+Generate a PNG image from the project `deps.edn` configuration and save to `project-dependencies-graph.png` file
 
+```bash
+clojure -T:graph/deps
+```
+
+Options available
+
+* `:deps` - Path to deps file (default = "deps.edn")
+* `:trace` - images showing individual trace images of dependency relations (default = false)
+* `:trace-file` - Path to trace.edn file to read
+* `:output` - file name string to save the generated image, `:output '"deps.png"'`
+* `:trace-omit` - Collection of lib symbols to omit in trace output
+* `:size` - Boolean flag to include sizes in images (default = false)
 
 
 ## Performance testing
+
 Performance testing tools for the REPL
 
 * [:performance/benchmark](https://github.com/hugoduncan/criterium/)
 
 Use the aliases with either `-M` or `-X` flags on the Clojure command line.
 
-TODO: check these alias combinations are correct
-```
+```clojure
 clojure -M:performance/benchmark:repl/rebel
 
 (require '[criterium.core :refer [bench quick-bench]])
-(bench (adhoc-expression))
+(bench (expression-to-test))
 ```
 
-
-TODO: check these alias combinations are correct
 Performance test a project in the REPL
-```
+
+```clojure
 clojure -M:performance/benchmark:repl/rebel
 
 (require '[practicalli/namespace-name]) ; require project code
@@ -614,82 +573,90 @@ clojure -M:performance/benchmark:repl/rebel
 (quick-bench (project-function args))
 ```
 
-
-*  [:performance/memory-meter](https://github.com/clojure-goes-fast/clj-memory-meter) - memory usage
+* [:performance/memory-meter](https://github.com/clojure-goes-fast/clj-memory-meter) - memory usage
 
 Use the aliases with either `-M` or `-X` flags on the Clojure command line.
 
 In the REPL:
-```
+
+```clojure
   (require '[clj-memory-meter.core :as memory-meter])
    (memory-meter/measure (your-expression))
 ```
 
 ## Services
-Web servers and other standalone services run with Clojure CLI tools
 
-* `:service/webserver` - serve files from current directory or specified directory and port.  More options at [kachayev/nasus project](https://github.com/kachayev/nasus).
+Web servers and other standalone services run with Clojure CLI
 
-| Command                                        | Description                                         |
-|------------------------------------------------|-----------------------------------------------------|
-| `clojure -M:service/webserver`                 | HTTP file server for current directory on port 8000 |
-| `clojure -M:service/webserver 8888`            | as above with PORT specified to 8888                |
-| `clojure -M:service/webserver 8888 --dir docs` | as above with PORT 8888 and doc directory           |
+* `:service/http` - serve files from current directory or specified directory and port.  More options at [kachayev/nasus project](https://github.com/kachayev/nasus).
+
+| Command                                   | Description                                         |
+|-------------------------------------------|-----------------------------------------------------|
+| `clojure -M:service/http`                 | HTTP file server for current directory on port 8000 |
+| `clojure -M:service/http 8888`            | as above with PORT specified to 8888                |
+| `clojure -M:service/http 8888 --dir docs` | as above with PORT 8888 and doc directory           |
 
 > Use `Ctrl-c` to stop the server when running in the foreground
 
+## Security
+
+> DEPRECATED: `:security/nvd`
+> Using clojure-nvd via an alias [checks for security issues in clojure-nvd and its dependencies as they merged into the classpath](https://github.com/practicalli/clojure-cli-config/pull/31).
+>
+> The maintainer of clojure-nvd [suggested several ways to avoid classpath interference](https://github.com/rm-hull/nvd-clojure#avoiding-classpath-interference)
+
+* `:service/nvd` - check library dependencies of a project against the [National Vulnerability Database](https://nvd.nist.gov/) using [nvd-clojure](https://github.com/rm-hull/nvd-clojure)
+
+| Command                                          | Description                                                        |
+|--------------------------------------------------|--------------------------------------------------------------------|
+| `clojure -T:security/nvd "" "$(clojure -Spath)"` | check all jar files on the class path for security vulnerabilities |
+
+> The first "" is required argument and can contain a filename to a json file of additional configuration.  The second argument, `"$(clojure -Spath)"`, passes the project classpath to be analysed as a string.
+
 
 ## Community activities
-The [Clojurians Zulip CLI](https://gitlab.com/clojurians-zulip/feeds/-/blob/master/README.md#announce-an-event) provides a simple way to register community events.
+
+The [Clojurians Zulip
+CLI](https://gitlab.com/clojurians-zulip/feeds/-/blob/master/README.md#announce-an-event) provides a simple way to register community events.
 
 * `:community/zulip-event` create an event on the Clojurians Zulip community
 
-Set an environment variable called ZULIP_AUTH to your account email, followed by
-the account token (in settings), e.g.
+Set an environment variable called ZULIP_AUTH to your account email, followed by the account token (see [Account & privacy](https://clojurians.zulipchat.com/#settings/account-and-privacy)), e.g.
 
-```
+```shell
 your@email.com:493u984u3249834uo4u
 ```
+
 Create an event using the following command
 
+Show help and options
+
+```shell
+clojure -M:community/zulip-event create -h
 ```
-clojure -M:community/zulip-event create --zulip-auth "${ZULIP_AUTH}" --title 'Practicalli Live - Exercism.io challenges' --start '2020-11-14T09:00+00:00' --duration 1 --url https://youtu.be/Z5C7X1UN8yo --description 'Walking through solutions to the Exercism.io challenges'
+
+Announce an meetup.com event (you'll be asked for confirmation before posting)
+
+```shell
+clojure -M:community/zulip-event create --zulip-auth "${ZULIP_AUTH}" --url https://www.meetup.com/some-group/events/123/
+```
+
+Full example
+
+```shell
+clojure -M:community/zulip-event create --zulip-auth "${ZULIP_AUTH}" \
+--title 'Practicalli Live - Exercism.io challenges' \
+--start '2020-11-14T09:00+00:00' \
+--duration 1 \
+--url https://youtu.be/Z5C7X1UN8yo \
+--description 'Walking through solutions to the Exercism.io challenges'
 ```
 
 Take care to get the timezone notation correct.
 
 
----
+## Library Hosting Services
 
-
-## Experimental / Alpha Aliases
-
-* [`:alpha/carve`](https://github.com/borkdude/carve) - EXPERIMENTAL, use with caution - carve out unwanted vars in code
-* [`:alpha/hotload-libs`](https://github.com/clojure/tools.deps.alpha) - EXPERIMENTAL, use with caution - hot-load libraries into a running namespace.
-
-
-**Hot loading dependencies** (unofficial - changes planned already)
-> This is a very unofficial approach to hot loading and the design may change quite soon, so this alias is likely to break without notice.  Do not rely on this alias working and use with caution.
-
-* [`:project/hotload-dep`](https://github.com/clojure/tools.deps.alpha) - Add jar dependencies into a running REPL.
-
-Require the `add-lib` function to include a maven style dependency
-```
-(require '[clojure.tools.deps.alpha.repl :refer [add-lib]])
-  (add-lib 'domain/library {:mvn/version "RELEASE"})
-```
-
-Require `clojure.tools.gitlibs` namesapace to hot load dependencies from a Git repository
-```
-(require '[clojure.tools.gitlibs :as gitlibs])
-(defn load-master [library]
-  (let [git (str "https://github.com/" library ".git")]
-    (add-lib library {:git/url git :sha (gitlibs/resolve git "master")})))
-(load-master 'clojure/tools.trace)
-```
-
-
-# Library repositories
 Repositories that host libraries for Clojure.
 
 `central` and `clojars` are the man repositories for Clojure development are consulted in order.
@@ -698,54 +665,66 @@ Repositories that host libraries for Clojure.
 
 The order of additional repositories consulted is not guaranteed, so may cause unpredictable side effects in the project build especially if `RELEASE` or `LATEST` tags are used rather than a numeric library version.
 
+Maven supports [explicit mirror definition](https://maven.apache.org/guides/mini/guide-mirror-settings.html) in `~/.m2/settings.xml` and Clojure CLI  supports this configuration.  Adding Maven Central or a mirror to  `~/.m2/settings.xml` negates the need for its entry in deps.edn configuration.
 
+### Recommended repositories
 
-Maven supports [explicit mirror definition](http://maven.apache.org/guides/mini/guide-mirror-settings.html) in `~/.m2/settings.xml` and Clojure CLI tools(tools.deps) supports this configuration.  Adding Maven Central or a mirror to  `~/.m2/settings.xml` negates the need for its entry in deps.edn configuration.
-
-**Recommended repositories**
 * `central` - Maven Central, the canonical repository for JVM libraries, including Clojure releases
-* `clojars` - clojars.org, the canonical repositories for Clojure community libraries fronted by a contend delivery network service, https://repo.clojars.org/
+* `clojars` - [clojars.org](https://repo.clojars.org/), the canonical repositories for Clojure community libraries fronted by a contend delivery network service
 
-**Optional repositories**
-* `sonatype` - snapshots of Clojure development releases, useful for testing against before new stable releases.
-* `jcenter` - the largest mirror of all open source libraries (useful as a backup or accessing through corporate firewalls)
+### Optional repositories
+
+* `sonatype` - [snapshots of Clojure development releases](https://oss.sonatype.org/), useful for testing against before new stable releases.
 * `business-area` - example of adding a local Artifactory server for your team or business area.
 * `google-maven-central` - [Maven Central mirror hosted on Google Cloud Storage](https://storage-download.googleapis.com/maven-central/index.html) - Americas, Asia, Europe
 
-**Americas mirrors**
+> Use only one entry for a specific repository to ensure a repeatable build.  For example, avoid having Maven Central and a Maven Central mirror both included.
+
+### Business area
+
+Example of local Artifactory repository configuration
+
+```clojure
+ :mvn/repos
+ {"business-area" {:url "https://artifacts.internal-server.com:443/artifactory/business-area-maven-local"}
+```
+
+### Americas mirrors
+
 ```clojure
  :mvn/repos
  {"google-maven-central" {:url "https://maven-central.storage-download.googleapis.com/maven2/"}}
 ```
 
-**Europe mirrors**
-Use only one mirror entry for a specific repository, to ensure a repeatable build.
-```
+### Europe mirrors
+
+```clojure
  :mvn/repos
  {"google-maven-central" {:url "https://maven-central-eu.storage-download.googleapis.com/maven2/"}
 
- ;; UK specific mirror
- "uk"      {:url "http://uk.maven.org/maven2/"}
-
-  ;; CDN access to clojars
-  "clojars" {:url "https://repo.clojars.org/"}}
+ ;; CDN access to clojars
+ "clojars" {:url "https://repo.clojars.org/"}}
 ```
 
-**Asian Region Mirrors**
-```
+### Asian Region Mirrors
+
+```clojure
  :mvn/repos
  {"google-maven-central" {:url "https://maven-central-asia.storage-download.googleapis.com/maven2/"}
 
-  ;; Community mirror
-  "clojars-china-mirror" {:url "https://mirrors.tuna.tsinghua.edu.cn/clojars/"}
+ ;; Community mirror
+ "clojars-china-mirror" {:url "https://mirrors.tuna.tsinghua.edu.cn/clojars/"}
 
-  ;; CDN access to clojars
-  "clojars" {:url "https://repo.clojars.org/"}}
+ ;; CDN access to clojars
+ "clojars" {:url "https://repo.clojars.org/"}}
 ```
 
-**Maven local repository**
-```
- :mvn/local-repo "m2"
+## Maven local repository
+
+Define a local Maven repository.  Useful if you wish to specify an alternative to the default `~/.m2/` directory.
+
+```clojure
+ :mvn/local-repo "/cache/.m2"
 ```
 
-> NOTE: using `clj -Sforce` forces a classpath recompute, deleting the contents of .cpcache
+> NOTE: using `clojure -Sforce` forces a classpath recompute, deleting the contents of .cpcache

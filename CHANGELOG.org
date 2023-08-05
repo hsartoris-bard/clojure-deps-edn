@@ -2,6 +2,590 @@
 
 * Unreleased
 
+* 2023-08-02
+** Changed
+   - ci: exclude clojurescript from antq version check
+   - ~:project/create~ version 2023-08-01 of practicalli/project-templates
+   - ci: spell lychee & repository trufflehog linters warn only (false positives) 
+   - ~:project/create~ version 2023-08-01 of practicalli/project-templates
+
+* 2023-07-26
+** Added
+   - ~:project/create~ version 2023-07-14 of practicalli/project-templates
+   - ~:project/create~ version 2023-07-26 of practicalli/project-templates
+
+* 2023-07-01
+** Added
+*** alias: `:test/run-all` kaocha runner with `:fail-fast false` to run all tests regardless of failing tests
+*** ci: megalinter GitHub action version java@7 in megalinter.yaml workflow
+*** ci: scheduled monthly version check
+
+** Updated
+*** Update library versions using `make outdated`
+
+    | :name                                |  :current |   :latest |
+    |--------------------------------------+-----------+-----------|
+    | com.github.jpmonettas/flow-storm-dbg |     3.6.2 |     3.6.5 |
+    | com.github.liquidz/antq              |  2.4.1070 |  2.5.1089 |
+    | djblue/portal                        |    0.41.0 |    0.42.0 |
+    | io.github.nextjournal/clerk          |  0.13.842 |  0.14.919 |
+    | lambdaisland/kaocha                  | 1.84.1335 | 1.85.1342 |
+    | zprint/zprint                        |     1.2.6 |     1.2.7 |
+
+*** Monthly version update using `make outdated`
+
+    | :name                                | :current |  :latest |
+    |--------------------------------------+----------+----------|
+    | cider/cider-nrepl                    |   0.30.0 |   0.31.0 |
+    | com.github.jpmonettas/flow-storm-dbg |    3.6.5 |    3.6.7 |
+    | com.github.liquidz/antq              | 2.5.1089 | 2.5.1095 |
+    | com.github.seancorfield/next.jdbc    |  1.3.874 |  1.3.883 |
+    | djblue/portal                        |   0.42.0 |   0.42.1 |
+    | integrant/repl                       |    0.3.2 |    0.3.3 |
+    | io.aviso/pretty                      |    1.4.3 |    1.4.4 |
+
+* 2023-06-11
+** Updated
+*** practicalli/project-templates version 2023-06-11
+
+* 2023-06-02
+** Updated
+*** ci: setup-clojure action version 11
+*** ci: megalinter@java action version 7
+*** ci: clj-kondo action version 2023.05.26
+*** Update library versions using `clojure -T:search/outdated`
+
+    |                                  :name |                                 :current |                                  :latest |
+    +----------------------------------------+------------------------------------------+------------------------------------------|
+    |                         borkdude/carve | 14a3a5db4b372e33d20763a8d1344bddae72c735 | cb621317ae1582869c8bd8f1a47cf57a3598d803 |
+    |                    clj-kondo/clj-kondo |                               2023.04.14 |                               2023.05.26 |
+    |                 clojurians-zulip/feeds | dc0ed3f14bcc2f6344492782220313427bc5c8bf | 4bf8109afc5cd5ab2f409151d4dd583644028b4a |
+    | com.clojure-goes-fast/clj-memory-meter |                                    0.2.3 |                                    0.3.0 |
+    |   com.github.jpmonettas/flow-storm-dbg |                                    3.5.1 |                                    3.6.2 |
+    |                          djblue/portal |                                   0.40.0 |                                   0.41.0 |
+    |                        io.aviso/pretty |                                    1.4.2 |                                    1.4.3 |
+    |                    lambdaisland/kaocha |                                1.83.1314 |                                1.84.1335 |
+    |                org.clojure/spec-alpha2 | 46b183d19984cafb655647f212bfa286b4d0dc63 | 4cbfa677c4cd66339f18e1c122222c05c69e0d8e |
+    |                          zprint/zprint |                                    1.2.5 |                                    1.2.6 |
+
+* 2023-05-09
+** Updated
+*** ci: weekly schedule version check, exclude tools deps alpha
+*** alias: exclude tools.deps.alpha library in :search/outdated
+*** Update library versions using `clojure -T:search/outdated`
+
+  | :name                           |  :current |   :latest |
+  |---------------------------------+-----------+-----------|
+  | com.github.liquidz/antq         |  2.4.1062 |  2.4.1070 |
+  | io.aviso/pretty                 |       1.4 |     1.4.2 |
+  | io.github.seancorfield/deps-new |    v0.5.1 |    v0.5.2 |
+  | lambdaisland/kaocha             | 1.82.1306 | 1.83.1314 |
+
+* 2023-05-03
+** Added
+*** alias: `:lib/component-repl` REPL workflow for Component library
+*** alias: `:lib/integrant-repl` REPL workflow for Integrant library
+*** alias: `:inspect/morse` new in-process inspect tool (using the REBL JavaFX UI)
+** Changed
+*** DEPRECATED: `:lib/reloaded` & `:lib/tools-ns` - use `:dev/reloaded`
+*** DEPRECATED: `lib/nrepl` little value without a `:main-opts` configuration
+*** DEPRECATED: `:repl/rebel-cljs`, `:repl/figwheel`, `:repl/rebel-cljs` requires JVM with Nashorn, i.e. Java 8 - use figwheel-main template and [[https://practical.li/spacemacs/clojure-repl/clojurescript-repl/][Practicalli ClojureScript project workflow]]
+*** docs: `lib/hotload` for Clojure 1.11 and uses [[https://github.com/clojure/tools.deps.alpha/tree/add-lib3][clojure/tools.deps.alpha]] which has been replaced for Clojure 1.12
+*** alias: remove clojure/tools.deps.alpha from `:repl/reloaded` & `:dev/reloaded` for use with Clojure 1.12
+*** alias: remove find-deps from `:repl/reloaded` & `:dev/reloaded` as no longer required - use add-lib instead
+*** docs: update introduction and remove outdated content
+*** aliases: use `--main` option in alias `:main-opts` definitions for greater clarity
+*** alias: `:repl/rebel` load Clojure 1.12 hotload functions during REPL startup
+** Updated
+*** ci: updated GitHub workflow and configuration to standand used in other Practicalli projects
+*** Update library versions using `clojure -T:search/outdated`
+
+  | :name                                | :current                                 | :latest                                  |
+  |--------------------------------------+------------------------------------------+------------------------------------------|
+  | clojurians-zulip/feeds               | ba8fe2b7f3415334a73c1ccc6077eafb05e43c5b | dc0ed3f14bcc2f6344492782220313427bc5c8bf |
+  | com.github.jpmonettas/flow-storm-dbg | 3.4.1                                    | 3.5.1                                    |
+  | com.github.liquidz/antq              | 2.3.1043                                 | 2.4.1062                                 |
+
+
+* 2023-04-26
+** Added
+*** yaml support in portal for `:repl/reloaded` and `:dev/reloaded` aliases
+*** Integrant REPL support for `:repl/reloaded` and `:dev/reloaded` aliases
+*** nREPL support for `:repl/inspect`
+*** `project/templates` alias for use with deps-new, providing Practialli designed project templates
+*** `project/create-local` to support development of Practialli project templates
+*** ci: antq library versions scheduled GitHub workflow
+** Changed
+*** remove find-deps from `:repl/reloaded` and `:dev/reloaded` aliases to avoid reload clash with add-libs dependency
+*** Breaking: rename `:env/test` to `:test/env` (drop `:env` as qualifier)
+*** Breaking: rename `:env/dev` to `:dev/env` (drop `:env` as qualifier)
+** Updated
+*** ci: MegaLinter Java Image version v6.22.2
+*** ci: setup-clojure version 10.3
+*** inspect: portal version 0.38.2
+*** alias: update rebel readline aliases to load `clojure.main/repl-requires` to include add-lib, add-libs and sync-deps for hotloading libraries on the classpath
+*** release version of practicalli/project-templates in `project/create` & `project/templates` aliases
+*** `project/create` to include Practialli designed project templates as a dependency
+*** readme: Clojure Projects section - example `project/create` commands, de-emphasising project/new alias
+*** Update library versions using `clojure -T:search/outdated`
+
+  | :name                                  |                                 :current |                                  :latest |
+  |----------------------------------------+------------------------------------------+------------------------------------------|
+  | clj-commons/clj-yaml                   |                                    0.7.0 |                                   1.0.26 |
+  | clj-kondo/clj-kondo                    |                               2023.03.17 |                               2023.04.14 |
+  | com.clojure-goes-fast/clj-memory-meter |                                    0.2.2 |                                    0.2.3 |
+  | com.github.jpmonettas/flow-storm-dbg   |                                  3.3.320 |                                    3.4.1 |
+  | com.github.liquidz/antq                |                                 2.2.1017 |                                 2.3.1043 |
+  | com.github.seancorfield/next.jdbc      |                                  1.3.862 |                                  1.3.874 |
+  | djblue/portal                          |                                   0.38.2 |                                   0.40.0 |
+  | io.aviso/pretty                        |                                      1.3 |                                      1.4 |
+  | jonase/eastwood                        |                                    1.3.0 |                                    1.4.0 |
+  | lambdaisland/kaocha                    |                                1.80.1274 |                                1.82.1306 |
+  | lambdaisland/kaocha-cljs               |                                  1.4.130 |                                  1.5.154 |
+  | org.clojure/clojurescript              |                                 1.10.773 |                                  1.11.60 |
+  | org.clojure/spec-alpha2                | 3d32b5e571b98e2930a7b2ed1dd9551bb269375a | 46b183d19984cafb655647f212bfa286b4d0dc63 |
+  | slipset/deps-deploy                    |                                    0.2.0 |                                    0.2.1 |
+
+
+* 2023-03-25
+** Added
+*** Add sayid related aliases with middleware `:repl/debug`, `:repl/debug-refactor`, `:repl/rebel-debug`, `:repl/rebel-debug-refactor`
+*** `:lib/flowstorm` for flowstom debugger use
+** Changed
+*** Correct libspec for kaocha test runner (change back to strings)
+*** Deprecate `:lib/sayid` as middleware should be included for sayid to function correctly with Clojure CLI
+*** Add `org.clojure/tools.trace` to REPL Reloaded aliases - `:repl/reloaded`, `:dev/reloaded`
+*** Update `:test/run` to fail-fast by default, mimimising test runs when there are failed tests
+*** `practicalli/clojure-cli-config` repository name (changed from clojure-deps-edn)
+*** `main` default branch (changed from live)
+*** ci: MegaLinter Java image 6.20.1
+*** ci: DeLaGuardo/setup-clojure 10.2, actions v3.5.0, clj-kondo v2023.03.17
+*** ci: workflows use `main` branch
+*** Update library versions using `clojure -T:search/outdated`
+
+|                              :name |                                 :current |                                  :latest |
+|------------------------------------+------------------------------------------+------------------------------------------|
+|                     borkdude/carve | f45dc3cb35a8b9c6c11d4681f8c673fa347d54be | 14a3a5db4b372e33d20763a8d1344bddae72c735 |
+|                  cider/cider-nrepl |                                   0.28.5 |                                   0.30.0 |
+|                clj-kondo/clj-kondo |                               2023.02.17 |                               2023.03.17 |
+|             clojurians-zulip/feeds | 13fd3ac7e259c62c6d05d09a1fc9f1f0b4564ab9 | ba8fe2b7f3415334a73c1ccc6077eafb05e43c5b |
+|            com.github.liquidz/antq |                                  2.2.992 |                                 2.2.1017 |
+|  com.github.seancorfield/next.jdbc |                                  1.3.847 |                                  1.3.862 |
+|                      djblue/portal |                                   0.35.1 |                                   0.37.1 |
+|        io.github.nextjournal/clerk |                                 0.12.707 |                                 0.13.842 |
+|                lambdaisland/kaocha |                                1.77.1236 |                                1.80.1274 |
+|                        nrepl/nrepl |                                    0.9.0 |                                    1.0.0 |
+|            nvd-clojure/nvd-clojure |                                    3.0.0 |                                    3.1.0 |
+|        org.clojure/tools.namespace |                                    1.4.1 |                                    1.4.4 |
+|                org.slf4j/slf4j-nop |                                    2.0.6 |                                    2.0.7 |
+|      refactor-nrepl/refactor-nrepl |                                    3.5.3 |                                    3.6.0 |
+|         vvvvalvalval/scope-capture |                                    0.3.2 |                                    0.3.3 |
+
+
+* 2023-02-21
+** Added
+*** `:format/zprint` alias to check the format using `:indent-only` style of given file name or file patterns, e.g. `**/*.clj **/*.edn`
+*** `:format/zprint!` alias to format using `:indent-only` style the given file name or file patterns, e.g. `**/*.clj **/*.edn`
+*** mulog library for event log and trace added to reloaded aliases, `:repl/reloaded`, `:dev/reloaded` & `:lib/reloaded`
+** Changed
+*** `:format/cljstyle` checks the format of all project files (or a given file)
+*** `:format/cljstyle!` automatically formats all the project files (or a given file)
+*** `:format/cljfmt` checks the format of all project files (or a given file)
+*** `:format/cljfmt!` automatically formats all the project files (or a given file)
+*** MegaLinter workflow java flavor version v6.19.0
+*** Quality Checks GitHub workflow action/checkout updated to version v3.3.0
+*** Update library versions using `clojure -T:search/outdated`
+
+| :name                                  |                                 :current |                                  :latest |
+|----------------------------------------+------------------------------------------+------------------------------------------|
+| borkdude/carve                         | 9c11e4727bff22386899f048d1d50b7978d3ac9e | f45dc3cb35a8b9c6c11d4681f8c673fa347d54be |
+| cider/cider-nrepl                      |                                   0.28.7 |                                   0.30.0 |
+| clj-kondo/clj-kondo                    |                               2022.11.02 |                               2023.02.17 |
+| cljfmt/cljfmt                          |                                    0.9.0 |                                    0.9.2 |
+| clojurians-zulip/feeds                 | 504498974d481ce22b458f942dff2a28f6ced1e5 | 13fd3ac7e259c62c6d05d09a1fc9f1f0b4564ab9 |
+| com.clojure-goes-fast/clj-memory-meter |                                    0.2.1 |                                    0.2.2 |
+| com.github.liquidz/antq                |                                  2.2.962 |                                  2.2.992 |
+| com.github.seancorfield/next.jdbc      |                                  1.2.796 |                                  1.3.847 |
+| djblue/portal                          |                                   0.34.2 |                                   0.35.1 |
+| io.github.seancorfield/deps-new        |                                  v0.4.13 |                                   v0.5.0 |
+| lambdaisland/kaocha                    |                                1.71.1119 |                                1.77.1236 |
+| nvd-clojure/nvd-clojure                |                                   2.11.0 |                                    3.0.0 |
+| org.clojure/tools.deps.graph           |                                   1.1.68 |                                   1.1.76 |
+| org.clojure/tools.namespace            |                                    1.3.0 |                                    1.4.1 |
+| org.slf4j/slf4j-nop                    |                                    2.0.5 |                                    2.0.6 |
+| zprint/zprint                          |                                    1.2.4 |                                    1.2.5 |
+
+
+* 2023-02-02
+** Added
+*** `project/create` alias as a simpler and easier to remember alias for [seancorfield/deps-new](https://github.com/seancorfield/deps-new)
+*** #46 `lib/scope-capture` [scope-capture](https://github.com/vvvvalvalval/scope-capture) library to save and restore state to support REPL debugging
+*** #06 `dev/reloaded` & `:repl/reloaded` aliases - provinding common dev and test libraries and paths
+** Changed
+*** #61 removed depricated aliases and those not used, moving to `deps-deprecated.edn` for posterity, updated README describing aliases use
+
+* 2022-12-21
+** Added
+*** `:project/deps-new` alias to create projects using [seancorfield/deps-new](https://github.com/seancorfield/deps-new)
+*** `:lib/clerk` alias for data science note books [nextjournal/clerk](https://github.com/nextjournal/clerk)
+** Changed
+*** update `:project/new` to use app template by default
+*** clarify running projects with clojure.main
+*** update `:src/clojure` to use full path as HOME and `~` are not resolved
+*** update .cljstyle configuration to match practicalli/dotfiles
+
+* 2022-11-29
+** Changed
+*** updated versions of GitHub actions used in the GitHub workflows during CI
+*** use GitHub action setup-clojure for clj-kondo, drop lint-with-clj-kondo file
+*** Update library versions using `clojure -T:search/outdated`
+
+  | :name                             |                                 :current |                                  :latest |
+  |-----------------------------------+------------------------------------------+------------------------------------------|
+  | borkdude/carve                    | df552797a198b6701fb2d92390fce7c59205ea77 | 9c11e4727bff22386899f048d1d50b7978d3ac9e |
+  | cider/cider-nrepl                 |                                   0.28.5 |                                   0.28.7 |
+  | clj-kondo/clj-kondo               |                               2022.08.03 |                               2022.11.02 |
+  | clojurians-zulip/feeds            | 9695c2879d5df23a44afe7cd838f09d7d8ab06a6 | 504498974d481ce22b458f942dff2a28f6ced1e5 |
+  | com.github.liquidz/antq           |                                  2.0.895 |                                  2.2.962 |
+  | com.github.seancorfield/next.jdbc |                                  1.2.796 |                                  1.3.847 |
+  | djblue/portal                     |                                   0.30.0 |                                   0.34.2 |
+  | io.aviso/pretty                   |                                    1.1.1 |                                      1.3 |
+  | io.github.babashka/neil           |                                  v0.0.31 |                                  v0.1.47 |
+  | jonase/eastwood                   |                                    1.2.5 |                                    1.3.0 |
+  | lambdaisland/kaocha               |                                1.69.1069 |                                1.71.1119 |
+  | lambdaisland/kaocha-cljs          |                                  1.0.113 |                                  1.4.130 |
+  | mvxcvi/puget                      |                                    1.3.2 |                                    1.3.4 |
+  | nvd-clojure/nvd-clojure           |                                    2.8.0 |                                   2.11.0 |
+  | org.clojure/spec-alpha2           | 99456b1856a6fd934e2c30b17920bd790dd81775 | 3d32b5e571b98e2930a7b2ed1dd9551bb269375a |
+  | org.slf4j/slf4j-nop               |                                    2.0.0 |                                    2.0.5 |
+  | refactor-nrepl/refactor-nrepl     |                                    3.5.5 |                                    3.6.0 |
+  | vlaaad/reveal                     |                                  1.3.275 |                                  1.3.276 |
+
+* 2022-09-07
+** Added
+*** add cljstyle configuration to align with Clojure style and cljfmt formatting in Clojure LSP
+*** format deps.edn with cljstyle
+*** cljstyle workflow using clojure-setup GitHub action
+
+** Changed
+*** updated versions of GitHub actions used in the GitHub workflows during CI
+*** Update library versions using `clojure -T:search/outdated`
+
+  | :name                                  |                                 :current |                                  :latest |
+  |----------------------------------------+------------------------------------------+------------------------------------------|
+  | clj-kondo/clj-kondo                    |                               2022.06.22 |                               2022.08.03 |
+  | cljfmt/cljfmt                          |                                    0.8.2 |                                    0.9.0 |
+  | com.clojure-goes-fast/clj-memory-meter |                                    0.1.3 |                                    0.2.1 |
+  | com.github.liquidz/antq                |                                  1.9.859 |                                  2.0.895 |
+  | com.github.seancorfield/next.jdbc      |                                  1.2.780 |                                  1.2.796 |
+  | djblue/portal                          |                                   0.28.0 |                                   0.30.0 |
+  | jonase/eastwood                        |                                    1.2.4 |                                    1.2.5 |
+  | lambdaisland/kaocha                    |                                1.68.1059 |                                1.69.1069 |
+  | nrepl/nrepl                            |                                    0.9.0 |                                    1.0.0 |
+  | nvd-clojure/nvd-clojure                |                                    2.7.0 |                                    2.8.0 |
+  | org.slf4j/slf4j-nop                    |                                   1.7.36 |                                    2.0.0 |
+  | refactor-nrepl/refactor-nrepl          |                                    3.5.3 |                                    3.5.5 |
+  | vlaaad/reveal                          |                                  1.3.273 |                                  1.3.275 |
+  | zprint/zprint                          |                                    1.2.3 |                                    1.2.4 |
+
+* 2022-07-09
+** Added
+*** [[https://github.com/practicalli/clojure-deps-edn/issues/44][#44 Windows and Clojure CLI escape character issues]] - add link to escape quoting section of Clojure CLI documentation
+** Changed
+*** .github/workflows/lint-with-clj-kondo.yml updated to 2022.05.31
+*** Update library versions using `clojure -T:search/outdated`
+
+  | :name                           |   :current |    :latest |
+  |---------------------------------+------------+------------|
+  | cider/cider-nrepl               |     0.28.4 |     0.28.5 |
+  | clj-kondo/clj-kondo             | 2022.05.31 | 2022.06.22 |
+  | cljfmt/cljfmt                   |      0.8.0 |      0.8.2 |
+  | com.github.liquidz/antq         |    1.7.798 |    1.9.859 |
+  | com.github.seancorfield/clj-new |    1.2.381 |    1.2.399 |
+  | com.h2database/h2               |    2.1.212 |    2.1.214 |
+  | djblue/portal                   |     0.26.0 |     0.28.0 |
+  | jonase/eastwood                 |      1.2.3 |      1.2.4 |
+  | lambdaisland/kaocha             |  1.66.1034 |  1.68.1059 |
+  | nvd-clojure/nvd-clojure         |      2.6.0 |      2.7.0 |
+  | refactor-nrepl/refactor-nrepl   |      3.5.2 |      3.5.3 |
+
+* 2022-06-24
+** Changed
+*** Update `:repl/interactive` and `:repl/headless` aliases with `cider/cider-nrepl` middleware
+
+* 2022-06-18
+** Changed
+*** Update `:repl/*` aliases to use the `--interactive` option rather than the short `-i` version
+*** Update readme to use `:search/outdated` and `:search/outdated-mvn` aliases
+
+* 2022-06-11
+** Resolved
+*** #48 - provide `:mvn/local-repo` as an example only - ideally requires full path
+
+* 2022-06-06
+** Added
+*** aliases section keys documentation
+
+** Changed
+*** Set :mvn/local-repo to XDG_CACHE_HOME location, `~/.cache/maven/repository` as described in the [[https://practical.li/blog/posts/adopt-FreeDesktop.org-XDG-standard-for-configuration-files/][Practicalli blog article on XDG standard for development tools]]
+*** Update .github/workflows/lint-with-clj-kondo.yml it version 2022.05.31
+*** Update library versions using `clojure -T:search/outdated > outdated-2022-06-06.org` command
+
+| :name                                |   :current |              :latest |
+|--------------------------------------+------------+----------------------|
+| cider/cider-nrepl                    |     0.28.3 |               0.28.4 |
+| clj-kondo/clj-kondo                  | 2022.04.08 |           2022.05.31 |
+| cloverage/cloverage                  |      1.2.3 |                1.2.4 |
+| com.bhauman/figwheel-main            |     0.2.16 |               0.2.18 |
+| com.github.liquidz/antq              |      1.6.1 |              1.7.798 |
+| com.h2database/h2                    |    2.1.210 |              2.1.212 |
+| djblue/portal                        |     0.23.0 |               0.26.0 |
+| io.github.cognitect-labs/test-runner |     v0.5.0 | v0.5.1 (SHA dfb30dd) |
+| lambdaisland/kaocha                  |  1.65.1029 |            1.66.1034 |
+| nvd-clojure/nvd-clojure              |      2.5.0 |                2.6.0 |
+| org.clojure/tools.namespace          |      1.2.0 |                1.3.0 |
+| zprint/zprint                        |      1.2.2 |                1.2.3 |
+
+> Aliases that use a :git/tag version, e.g. `:test/cognitect` should also check for the latest `:git/sha` value on or after that tag to ensure the correct commit is used.  TODO: check if the latest antq checks for a new `:git/sha` value if there is a newer `:git/tag` value.
+
+
+* 2022-05-04
+** Changed
+*** `:repl/socket` using clojure.exec alias rather than JVM opts (moved to :repl/socket-jvm-opts alias
+*** `deps find-versions` clarified `:lib` and domain/library-name options required
+
+* 2022-04-21
+** Fixed
+*** `-X:deps mvn-install` documentation - wrap `:jar` value in single and double quotes. Resolves #44
+
+
+* 2022-04-12
+** Changed
+*** Removed :deps from configuration to avoid over-riding version from install of Clojure CLI
+*** GitHub action .github/workflows/lint-with-clj-kondo.yml updated to version 2022.04.08
+*** Update library versions using `clojure -T:search/outdated > outdated-2022-04-12.org` command
+
+  | :name                             |                                 :current |                                  :latest |
+  |-----------------------------------+------------------------------------------+------------------------------------------|
+  | clj-kondo/clj-kondo               |                               2022.02.09 |                               2022.04.08 |
+  | cloverage/cloverage               |                                    1.2.2 |                                    1.2.3 |
+  | com.github.liquidz/antq           |                                    1.5.1 |                                    1.6.1 |
+  | com.github.seancorfield/next.jdbc |                                  1.2.772 |                                  1.2.780 |
+  | com.h2database/h2                 |                                  2.1.210 |                                  2.1.212 |
+  | djblue/portal                     |                                   0.21.2 |                                   0.23.0 |
+  | lambdaisland/kaocha               |                                 1.63.998 |                                1.65.1029 |
+  | nvd-clojure/nvd-clojure           |                                    2.2.0 |                                    2.5.0 |
+  | refactor-nrepl/refactor-nrepl     |                                    3.3.2 |                                    3.5.2 |
+  | thomasa/morpheus                  | 0c4cb1436e49077a4762347cf4b1f5885a007a2f | 9d6f2c1ede8be7ab4508065fe6b7e40e0c099ab6 |
+  | vlaaad/reveal                     |                                  1.3.270 |                                  1.3.273 |
+
+
+* 2022-03-25
+** Added
+*** `:lib/hotload` - latest SHA from add-libs branch of `org.clojure/tools.deps.alpha` to support [hotload libraries into a running REPL](https://practical.li/clojure/clojure-cli/hotload-libraries/)
+
+
+* 2022-03-22
+** Added
+*** `:env/dev` - add `dev` directory to class path - e.g. include `dev/user.clj` to [configure REPL starup](https://practical.li/clojure/clojure-cli/projects/configure-repl-startup.html)
+*** `:lib/nrepl` include nrepl as a library
+*** `:lib/hotload` - include `org.clojure/tools.deps.alpha` add-libs commit to [hotload libraries into a running REPL](https://practical.li/clojure/clojure-cli/hotload-libraries/)
+*** `:lib/tools-ns` - include `org.clojure/tools.namespace` to refresh the current namespace in a running REPL
+*** `:lib/reloaded` - combination of hotload and tools-ns aliases
+*** `:lib/pretty-errors` - highlight important aspects of error stack trace using ANSI formatting
+
+*** `-M:search/errors` [clj-check](https://github.com/athos/clj-check.git) - search each namespace and report compilation warnings and errors
+*** `-M::search/unused-vars` [Carve](https://github.com/borkdude/carve) - search code for unused vars and remove them - optionally specifying paths `--opts '{:paths ["src" "test"]}'`
+*** `-M:search/libraries` - [find-deps](https://github.com/hagmonk/find-deps) - fuzzy search Maven & Clojars and add deps to deps.edn
+*** `-T:search/outdated` -  [liquidz/antq](https://github.com/liquidz/antq) - check for newer versions of libraries, updating `deps.edn` if `:update true` passed as argument
+
+*** `-M:project/depify` to generate deps.edn configuration from a Leiningen project.clj configuration
+
+
+* 2021-03-03
+** Added
+*** ~graph/ns-deps~ shows connections between library dependencies and the namespace
+*** ~graph/deps~ now uses tools.deps.graph to show relationship between library
+*** ~:lib/pprint-sorted~ alias to include the [[https://github.com/greglook/puget][puget library]] when starting a REPL session, enabling sorted keys and set values when pretty printing and colour highlighting
+*** ~:lib/sayid~ include [[https://github.com/clojure-emacs/sayid][Sayid]] as a dependency to support provide REPL driven debugging and profiling
+
+** Changed
+*** `:graph/` aliases documentation in README
+*** github actions - update checkout to v3
+*** Update library versions using `:project/outated` alias
+
+  | :name                        |                                 :current |                                  :latest |
+  |------------------------------+------------------------------------------+------------------------------------------|
+  | cider/cider-nrepl            |                                   0.28.2 |                                   0.28.3 |
+  | com.github.liquidz/antq      |                                    1.5.0 |                                    1.5.1 |
+  | jonase/eastwood              |                                    1.2.2 |                                    1.2.3 |
+  | uberdeps/uberdeps            |                                    1.1.2 |                                    1.1.4 |
+  | vlaaad/reveal                |                                  1.3.265 |                                  1.3.270 |
+
+* 2021-02-18
+** Added
+*** add `:src/clojure` to add local clone of Clojure core sources (Java & Clojure)
+*** add `:lib/kaocha` alias to include kaocha as a library, enabling scripts such as kaocha-runner.el to run Kaocha test runner from Emacs Cider
+
+** Changed
+*** command line documentation for :security/nvd to pass correct arguments
+*** Use -T flag with :project/outated alias, with alias updated to use `:exec-fn` and `:exec-args` for default values
+*** Rewrite project introduction
+*** sources alias moved from lib/ to src/ for greater clarity
+*** kaocha version update and migration to -T execution option
+*** revert kaocha migration to -T execution option as it requires both src and test path to be included as extra paths
+*** re-organised aliases for using Reveal and Rebel together
+*** Update clj-kondo library in .github/workflows/lint-with-clj-kondo.yml GitHub Action from 2021.12.16 to 2022.02.09
+*** Update library versions using `:project/outated` alias
+
+| :name                             |                                 :current |                                  :latest |
+|-----------------------------------+------------------------------------------+------------------------------------------|
+| borkdude/carve                    | 1fd3da8472cf9ee902f9616ca3aeb4812b5c734c | df552797a198b6701fb2d92390fce7c59205ea77 |
+| cider/cider-nrepl                 |                                   0.27.4 |                                   0.28.2 |
+| clj-kondo/clj-kondo               |                               2021.12.16 |                               2022.02.09 |
+| com.bhauman/figwheel-main         |                                   0.2.15 |                                   0.2.16 |
+| com.github.liquidz/antq           |                                    1.3.1 |                                    1.5.0 |
+| com.github.seancorfield/clj-new   |                                  1.2.380 |                                  1.2.381 |
+| com.github.seancorfield/next.jdbc |                                  1.2.761 |                                  1.2.772 |
+| com.h2database/h2                 |                                  2.0.202 |                                  2.1.210 |
+| djblue/portal                     |                                   0.19.0 |                                   0.21.2 |
+| jonase/eastwood                   |                                    1.0.0 |                                    1.2.2 |
+| lambdaisland/kaocha               |                                 1.60.977 |                                 1.63.998 |
+| nvd-clojure/nvd-clojure           |                                    1.9.0 |                                    2.2.0 |
+| org.clojure/test.check            |                                    1.1.0 |                                    1.1.1 |
+| org.slf4j/slf4j-nop               |                                   1.7.32 |                                   1.7.36 |
+| refactor-nrepl/refactor-nrepl     |                                    3.1.0 |                                    3.3.2 |
+| uberdeps/uberdeps                 |                                    1.1.1 |                                    1.1.2 |
+| zprint/zprint                     |                                    1.2.0 |                                    1.2.2 |
+
+
+* 2021-12-18
+** Added
+*** [[https://github.com/practicalli/clojure-deps-edn/pull/27][#27]] ~:security/nvd~ alias added to run nvd-clojure to detect security issues in dependencies, as identified in the [[https://nvd.nist.gov/][National Vunerability Database]]
+*** `:kaocha-global` experimental alias to use a user level configuration rather than the project specific `tests.edn` configuration
+
+** Changed
+*** Update kaocha library versions
+*** GitHub Action workflow lint-with-clj-kondo.yml updated from 2021.08.06 to 2021.12.16
+*** Update library versions using `:project/outated` alias
+
+  | :name                             |                                 :current |                                  :latest |
+  |-----------------------------------+------------------------------------------+------------------------------------------|
+  | borkdude/carve                    | c9a4dec89032f2003cc439c473fcd3c41e809669 | 1fd3da8472cf9ee902f9616ca3aeb4812b5c734c |
+  | cider/cider-nrepl                 |                                   0.26.0 |                                   0.27.4 |
+  | cider/piggieback                  |                                    0.5.2 |                                    0.5.3 |
+  | clj-kondo/clj-kondo               |                               2021.08.06 |                               2021.12.16 |
+  | com.bhauman/figwheel-main         |                                   0.2.14 |                                   0.2.15 |
+  | com.github.liquidz/antq           |                                    1.0.0 |                                    1.3.0 |
+  | com.github.seancorfield/clj-new   |                                  1.1.331 |                                  1.2.380 |
+  | com.github.seancorfield/depstar   |                                  2.1.297 |                                  2.1.303 |
+  | com.github.seancorfield/next.jdbc |                                  1.2.709 |                                  1.2.761 |
+  | com.h2database/h2                 |                                  1.4.200 |                                  2.0.202 |
+  | djblue/portal                     |                                   0.14.0 |                                   0.19.0 |
+  | jonase/eastwood                   |                                    0.9.9 |                                    1.0.0 |
+  | lambdaisland/kaocha               |                                 1.60.945 |                                 1.60.972 |
+  | nrepl/nrepl                       |                                    0.8.3 |                                    0.9.0 |
+  | org.clojure/spec-alpha2           | c087ded910b3532a938b37e853df79fc3b9c48c1 | 99456b1856a6fd934e2c30b17920bd790dd81775 |
+  | org.clojure/test.check            |                                    1.1.0 |                                    1.1.1 |
+  | org.clojure/tools.deps.graph      |                                   1.0.63 |                                   1.1.68 |
+  | org.slf4j/slf4j-nop               |                                   1.7.31 |                                   1.7.32 |
+  | refactor-nrepl/refactor-nrepl     |                              3.0.0-pr301 |                                    3.1.0 |
+  | slipset/deps-deploy               |                                    0.1.5 |                                    0.2.0 |
+  | thomasa/morpheus                  | 7f4876ea631a6f5ccee2094d255efd2d1a98ffb6 | 0c4cb1436e49077a4762347cf4b1f5885a007a2f |
+  | uberdeps/uberdeps                 |                                    1.0.4 |                                    1.1.1 |
+  | vlaaad/reveal                     |                                  1.3.214 |                                  1.3.251 |
+  | zprint/zprint                     |                                    1.1.2 |                                    1.2.0 |
+
+
+* 2021-12-12
+** Added
+*** `test/watch` alias - Kaocha test runner in watch mode, including fast fail and skipping meta data.  Provides a quick to use test runner that watches for file changes and re-runs tests from the last failed test.
+** Changed
+*** `test/run` alias replaces `test/runner` to fit better with the intent and the name of the watch alias
+*** Add Kaocha alias changes to README.org
+*** Simplify common aliases table in README.org
+
+* 2021-09-13
+** .github/workflows/lint-with-clj-kondo.yml
+   Update run command to output messages in GitHub Actions format
+
+   Library version updates from ~:project/outdated~ alias
+
+  | :name               |   :current |    :latest |
+  |---------------------+------------+------------|
+  | clj-kondo/clj-kondo | 2020.04.05 | 2021.08.06 |
+
+** deps.edn
+   Add ~:lib/hotload~ alias to load libraries into a running REPL process.  This is a more memorable name for the alpha/hotload alias
+
+   Cognitect test runner version  using Git tag and providing Clojure exec function, invoked by ~clojure -X:test/cognitect~
+
+   Removed eftest aliases due to #22 eftest runner hangs when finished.  Kaocha or Cognitect-labs runners are recommended instead
+
+   Deprecated: test/midje - seldom used test runner and not recommended approach by Practicalli
+
+   Deprecated: `project/uberdeps` removed, depstar recommended until that itself is incorporated into tools.build
+
+   Library version updates from ~:project/outdated~ alias
+
+  | :name                             | :current |     :latest |
+  |-----------------------------------+----------+-------------|
+  | com.bhauman/figwheel-main         |   0.2.13 |      0.2.14 |
+  | com.github.liquidz/antq           |   0.16.0 |       1.0.0 |
+  | com.github.seancorfield/clj-new   |  1.1.321 |     1.1.331 |
+  | com.github.seancorfield/depstar   |  2.1.267 |     2.1.297 |
+  | com.github.seancorfield/next.jdbc |  1.2.659 |     1.2.709 |
+  | djblue/portal                     |   0.12.0 |      0.14.0 |
+  | jonase/eastwood                   |    0.8.1 |       0.9.9 |
+  | lambdaisland/kaocha               |  1.0.861 |     1.0.887 |
+  | lambdaisland/kaocha-cljs          |   1.0.71 |     1.0.107 |
+  | refactor-nrepl/refactor-nrepl     |    2.5.1 | 3.0.0-pr301 |
+  | vlaaad/reveal                     |  1.3.212 |     1.3.214 |
+
+
+* 2021-07-17
+  Update version of GitHub actions lint-with-clj-kondo.  Checks deps.edn to ensure its a valid structure.
+
+  Remove `RELEASE` version from aliases and used explicit versions
+
+  Change seancorfield/clj-new to new com.github.seancorfield/clj-new
+
+  `:alpha/hotload-libs` - add slf4j-nop dependency to specifically set the logging implementation.  Update documentation and add links to Practicalli Clojure page on hotloading and example project.
+
+  Add status badge to readme showing result of lint-with-clj-kondo GitHub Action
+
+* 2021-07-16
+  Readme updates
+  Monthly library updates
+
+  | :name                             |                                 :current |                                  :latest |
+  |-----------------------------------+------------------------------------------+------------------------------------------|
+  | borkdude/carve                    | 3fcc2a900e4fa4be2c9a539c9971c60e2e921162 | c9a4dec89032f2003cc439c473fcd3c41e809669 |
+  | com.bhauman/figwheel-main         |                                   0.2.11 |                                   0.2.13 |
+  | com.cognitect/test-runner         | 705ad25bbf0228b1c38d0244a36001c2987d7337 | f597341b6ca7bb4cf027e0a34a6710ca9cb969da |
+  | com.github.seancorfield/depstar   |                                  2.0.216 |                                  2.1.267 |
+  | com.github.seancorfield/next.jdbc |                                  1.2.659 |                                  1.2.674 |
+  | djblue/portal                     |                                   0.11.2 |                                   0.12.0 |
+  | org.clojure/clojurescript         |                                 1.10.773 |                                 1.10.866 |
+  | org.clojure/data.json             |                                    2.3.1 |                                    2.4.0 |
+  | org.clojure/tools.deps.graph      |                                   1.0.56 |                                   1.0.63 |
+  | vlaaad/reveal                     |                                  1.3.209 |                                  1.3.212 |
+
+  Available diffs:
+  - https://github.com/borkdude/carve/compare/3fcc2a900e4fa4be2c9a539c9971c60e2e921162...c9a4dec89032f2003cc439c473fcd3c41e809669
+  - https://github.com/bhauman/figwheel-main/compare/v0.2.11...head
+  - https://github.com/cognitect-labs/test-runner/compare/705ad25bbf0228b1c38d0244a36001c2987d7337...f597341b6ca7bb4cf027e0a34a6710ca9cb969da
+  - https://github.com/seancorfield/depstar/compare/v2.0.216...v2.1.267
+  - https://github.com/seancorfield/next-jdbc/compare/v1.2.659...v1.2.674
+  - https://github.com/djblue/portal/compare/0.11.2...0.12.0
+  - https://github.com/clojure/clojurescript/compare/r1.9.946...r1.10.866
+  - https://github.com/clojure/clojurescript/compare/r1.10.773...r1.10.866
+  - https://github.com/clojure/clojurescript/compare/r1.10.844...r1.10.866
+  - https://github.com/clojure/data.json/compare/v2.3.1...v2.4.0
+  - https://github.com/clojure/tools.deps.graph/compare/tools.deps.graph-1.0.56...v1.0.63
+  - https://github.com/vlaaad/reveal/compare/1.3.209...1.3.212
+
+
 * 2021-05-26
   PR #21 The  `clojure` CLI tool has renamed the configuration `user-config` to `config-user` bringing it in line with the other configuration names
 
